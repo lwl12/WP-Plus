@@ -18,7 +18,7 @@ define( 'WP_NPROGRESS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * @since 0.0.1
  */
 
-/*暂时不需要的进度条
+//进度条
 function wpn_enqueue() {
 	wp_enqueue_style( 'nprogresss', WP_NPROGRESS_PLUGIN_URL . 'nprogress.css' );
 
@@ -27,7 +27,7 @@ function wpn_enqueue() {
 }
 
 add_action( 'wp_enqueue_scripts', 'wpn_enqueue' );
-进度条结束*/
+
 
 //隐藏管理工具条
 show_admin_bar(false);
