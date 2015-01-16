@@ -1,17 +1,27 @@
 ﻿<?php
 /*
-Plugin Name: wp-plus
+Plugin Name: WP-Plus
 Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 0.2
+Version: 1.0
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'WP_NPROGRESS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+/* 启用插件自动跳转至设置*/
+register_activation_hook(__FILE__, 'wpdaxue_plugin_activate');
+add_action('admin_init', 'wpdaxue_plugin_redirect');
+function wpdaxue_plugin_activate() {
+    add_option('my_plugin_do_activation_redirect', true);
+}
+function wpdaxue_plugin_redirect() {
+    if (get_option('my_plugin_do_activation_redirect', false)) {
+        delete_option('my_plugin_do_activation_redirect');
+        wp_redirect(admin_url( 'options-general.php?page=wp_plus' ));
+    }
+}
 
 /* 添加插件控制面板*/
 function register_plugin_settings_link($links) { 
@@ -30,7 +40,7 @@ if( is_admin() ) {
 
 /*配置插件设置*/
 function wp_plus_menu() {
-    add_options_page('WP Plus + 插件控制面板', 'WordPress Plus', 'administrator','wp_plus', 'pluginoptions_page');
+    add_options_page('WP Plus 插件控制面板', 'WP Plus', 'administrator','wp_plus', 'pluginoptions_page');
 
 }
 
@@ -42,13 +52,15 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
+<div id="message" class="updated"><p>WP-Plus 1.0版本更新日志：</br>增加了插件控制面板自定义启用或关闭插件功能</br><b>感谢<a href="http://ceoblog.gq">@微软总裁CEO</a>提供插件管理面板核心代码。</b></div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
-<input type="checkbox" name="jdt" id="jdt" <?php echo get_option('mytheme_jdt'); ?> /> 启用“加载进度条”功能<p>
-<input type="checkbox" name="glgjt" id="glgjt" <?php echo get_option('mytheme_glgjt'); ?> /> 启用“隐藏管理工具条”功能<p>
-<input type="checkbox" name="gravatar" id="gravatar" <?php echo get_option('mytheme_gravatar'); ?> /> 启用“gravatar替换到typcn镜像”功能<p>
-<input type="checkbox" name="google" id="google" <?php echo get_option('mytheme_google'); ?> /> 启用“替换google相关资源”功能<p>
-<input type="checkbox" name="wryh" id="wryh" <?php echo get_option('mytheme_wryh'); ?> /> 启用“变更后台字体为微软雅黑”功能<p>
+<input type="checkbox" name="jdt" id="jdt" <?php echo get_option('wp_plus_jdt'); ?> /> 启用“加载进度条”功能<p>
+<input type="checkbox" name="glgjt" id="glgjt" <?php echo get_option('wp_plus_glgjt'); ?> /> 启用“隐藏管理工具条”功能<p>
+<input type="checkbox" name="gravatar" id="gravatar" <?php echo get_option('wp_plus_gravatar'); ?> /> 启用“gravatar替换到typcn镜像”功能<p>
+<input type="checkbox" name="google" id="google" <?php echo get_option('wp_plus_google'); ?> /> 启用“替换google相关资源”功能<p>
+<input type="checkbox" name="wryh" id="wryh" <?php echo get_option('wp_plus_wryh'); ?> /> 启用“变更后台字体为微软雅黑”功能（刷新后生效）<p>
+<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.0 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/wp-plus">点击获取最新版本 & 说明
 </form>
 </div>
 <?php
@@ -58,19 +70,21 @@ function pluginoptions_update()
 {
 /* 插件设置验证*/
 if ($_POST['jdt']=='on') { $display = 'checked'; } else { $display = ''; }
-update_option('mytheme_jdt', $display);
+update_option('wp_plus_jdt', $display);
 if ($_POST['glgjt']=='on') { $display = 'checked'; } else { $display = ''; }
-update_option('mytheme_glgjt', $display);
+update_option('wp_plus_glgjt', $display);
 if ($_POST['gravatar']=='on') { $display = 'checked'; } else { $display = ''; }
-update_option('mytheme_gravatar', $display);
+update_option('wp_plus_gravatar', $display);
 if ($_POST['google']=='on') { $display = 'checked'; } else { $display = ''; }
-update_option('mytheme_google', $display);
+update_option('wp_plus_google', $display);
 if ($_POST['wryh']=='on') { $display = 'checked'; } else { $display = ''; }
-update_option('mytheme_wryh', $display);
+update_option('wp_plus_wryh', $display);
 }
 ?>
-<?php if ( get_option('mytheme_jdt') == 'checked') { ?>
+<?php if ( get_option('wp_plus_jdt') == 'checked') { ?>
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+define( 'WP_NPROGRESS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 function wpn_enqueue() {
 	wp_enqueue_style( 'nprogresss', WP_NPROGRESS_PLUGIN_URL . 'nprogress.css' );
 
@@ -80,12 +94,12 @@ function wpn_enqueue() {
 add_action( 'wp_enqueue_scripts', 'wpn_enqueue' );
 ?>
 <?php } ?>
-<?php if ( get_option('glgjt') == 'checked') { ?>
+<?php if ( get_option('wp_plus_glgjt') == 'checked') { ?>
 <?php
 show_admin_bar(false);
 ?>
 <?php } ?>
-<?php if ( get_option('gravatar') == 'checked') { ?>
+<?php if ( get_option('wp_plus_gravatar') == 'checked') { ?>
 <?php
 function ty_avatar($avatar) { 
 $avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"gravatar.eqoe.cn",$avatar);
@@ -94,7 +108,7 @@ return $avatar;
 add_filter( 'get_avatar', 'ty_avatar', 10, 3 ); 
 ?>
 <?php } ?>
-<?php if ( get_option('google') == 'checked') { ?>
+<?php if ( get_option('wp_plus_google') == 'checked') { ?>
 <?php
 function devework_replace_open_sans() {
 	wp_deregister_style('open-sans');
@@ -107,7 +121,7 @@ add_action('admin_enqueue_scripts', 'devework_replace_open_sans');
 add_action( 'init', 'devework_replace_open_sans' );
 ?>
 <?php } ?>
-<?php if ( get_option('wryh') == 'checked') { ?>
+<?php if ( get_option('wp_plus_wryh') == 'checked') { ?>
 <?php
 function admin_fonts(){
     echo'<style type="text/css">
