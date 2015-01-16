@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 define( 'WP_NPROGRESS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-//进度条
+/*进度条*/
 
 function wpn_enqueue() {
 	wp_enqueue_style( 'nprogresss', WP_NPROGRESS_PLUGIN_URL . 'nprogress.css' );
@@ -23,17 +23,17 @@ function wpn_enqueue() {
 
 add_action( 'wp_enqueue_scripts', 'wpn_enqueue' );
 
-//隐藏管理工具条
+/*隐藏管理工具条*/
 show_admin_bar(false);
 
-//头像SSL加载
-function get_ssl_avatar($avatar) {
-   $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
-   return $avatar;
-}
-add_filter('get_avatar', 'get_ssl_avatar');
+/*头像替换到typcn镜像*/
+function ty_avatar($avatar) { 
+$avatar = str_replace(array("www.gravatar.com","0.gravatar.com","1.gravatar.com","2.gravatar.com"),"gravatar.eqoe.cn",$avatar);
+return $avatar; 
+} 
+add_filter( 'get_avatar', 'ty_avatar', 10, 3 ); 
 
-//替换google相关资源到360前端库CDN
+/*替换google相关资源到360前端库CDN*/
 function devework_replace_open_sans() {
 	wp_deregister_style('open-sans');
 	wp_register_style( 'open-sans', '//fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,300,400,600' );
@@ -44,7 +44,7 @@ add_action( 'wp_enqueue_scripts', 'devework_replace_open_sans' );
 add_action('admin_enqueue_scripts', 'devework_replace_open_sans');
 add_action( 'init', 'devework_replace_open_sans' );
 
-// 修改后台字体为微软雅黑
+/* 修改后台字体为微软雅黑*/
 function admin_fonts(){
     echo'<style type="text/css">
         * { font-family: "Microsoft YaHei" !important; }
