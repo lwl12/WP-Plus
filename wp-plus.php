@@ -5,10 +5,35 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.0
+Version: 1.2
 */
 
-
+/*自动更新机制*/
+add_action( 'update_init', 'wp_plus_updater' );
+function wp_plus_updater() {
+ 
+ include_once 'updater.php';
+ 
+ define( 'WP_Plus_update', true );
+ 
+ if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
+    $config = array(
+        'slug' => plugin_basename(__FILE__),
+        'proper_folder_name' => 'wp-plus',
+        'requires' => '4.1',
+        'tested' => '4.1',
+        'readme' => 'README.md',
+        'access_token' => '',
+        'api_url' => 'https://api.github.com/repos/liwanglin12/wp-plus',
+        'raw_url' => 'https://raw.github.com/liwanglin12/wp-plus/master',
+        'github_url' => 'https://github.com/liwanglin12/wp-plus',
+        'zip_url' => 'https://github.com/liwanglin12/wp-plus/zipball/master',
+        'sslverify' => true 
+    );
+    new WP_Plus_update($config);
+}
+ 
+}
 
 /* 启用插件自动跳转至设置*/
 register_activation_hook(__FILE__, 'wpdaxue_plugin_activate');
@@ -52,7 +77,7 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
-<div id="message" class="updated"><p>WP-Plus 1.0版本更新日志：</br>增加了插件控制面板自定义启用或关闭插件功能</br><b>感谢<a href="http://ceoblog.gq">@微软总裁CEO</a>提供插件管理面板核心代码。</b></div>
+<div id="message" class="updated"><p>WP-Plus 1.2版本更新日志：</br>增加了插件自助更新功能</br>优化多处功能细节</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php echo get_option('wp_plus_jdt'); ?> /> 启用“加载进度条”功能<p>
