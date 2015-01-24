@@ -5,7 +5,7 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.3
+Version: 1.4
 */
 
 /*自动更新机制*/
@@ -78,7 +78,7 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
-<div id="message" class="updated"><p>WP-Plus 1.3版本更新日志：</br>优化了插件自助更新功能</br>优化多处功能细节</div>
+<div id="message" class="updated"><p>WP-Plus 1.4版本更新日志：</br>优化了插件自助更新功能</br>优化多处功能细节</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
@@ -96,7 +96,7 @@ function pluginoptions_page()
 <input type="checkbox" name="wryh" id="wryh" <?php
     echo get_option('wp_plus_wryh');
 ?> /> 启用“变更后台字体为微软雅黑”功能（刷新后生效）<p>
-<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.3 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/wp-plus">点击获取最新版本 & 说明
+<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.4 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
 </form>
 </div>
 <?php
