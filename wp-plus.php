@@ -137,8 +137,9 @@ function pluginoptions_update()
     update_option('wp_plus_wryh', $display);
 }
 ?>
-/*加载进度*/
+
 <?php
+/*加载进度*/
 if (get_option('wp_plus_jdt') == 'checked') {
 ?>
 <?php
@@ -171,8 +172,9 @@ if (get_option('wp_plus_glgjt') == 'checked') {
 <?php
 }
 ?>
-/*头像镜像*/
+
 <?php
+/*替换头像*/
 if (get_option('wp_plus_gravatar') == 'checked') {
 ?>
 <?php
@@ -191,8 +193,9 @@ if (get_option('wp_plus_gravatar') == 'checked') {
 <?php
 }
 ?>
-/*谷歌替换*/
+
 <?php
+/*谷歌替换*/
 if (get_option('wp_plus_google') == 'checked') {
 ?>
 <?php
@@ -211,8 +214,9 @@ if (get_option('wp_plus_google') == 'checked') {
 <?php
 }
 ?>
-/*微软雅黑*/
+
 <?php
+/*微软雅黑*/
 if (get_option('wp_plus_wryh') == 'checked') {
 ?>
 <?php
