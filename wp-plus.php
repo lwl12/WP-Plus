@@ -5,7 +5,7 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.42
+Version: 1.43
 */
 
 /*自动更新机制*/
@@ -78,7 +78,7 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
-<div id="message" class="updated"><p>WP-Plus 1.42版本更新日志：</br>我也不知道写什么好总之改了点东西</div>
+<div id="message" class="updated"><p>WP-Plus 1.43版本更新日志：</br>修复一定条件下，头像加载缓慢的情况</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
@@ -96,7 +96,7 @@ function pluginoptions_page()
 <input type="checkbox" name="wryh" id="wryh" <?php
     echo get_option('wp_plus_wryh');
 ?> /> 启用“变更后台字体为微软雅黑”功能（刷新后生效）<p>
-<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.42 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
+<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.43 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
 </form>
 </div>
 <?php
@@ -137,6 +137,7 @@ function pluginoptions_update()
     update_option('wp_plus_wryh', $display);
 }
 ?>
+/*加载进度*/
 <?php
 if (get_option('wp_plus_jdt') == 'checked') {
 ?>
@@ -170,6 +171,7 @@ if (get_option('wp_plus_glgjt') == 'checked') {
 <?php
 }
 ?>
+/*头像镜像*/
 <?php
 if (get_option('wp_plus_gravatar') == 'checked') {
 ?>
@@ -181,7 +183,7 @@ if (get_option('wp_plus_gravatar') == 'checked') {
             "0.gravatar.com",
             "1.gravatar.com",
             "2.gravatar.com"
-        ), "gravatar.eqoe.cn", $avatar);
+        ), "ssl-gravatar.eqoe.cn", $avatar);
         return $avatar;
     }
     add_filter('get_avatar', 'ty_avatar', 10, 3);
@@ -189,6 +191,7 @@ if (get_option('wp_plus_gravatar') == 'checked') {
 <?php
 }
 ?>
+/*谷歌替换*/
 <?php
 if (get_option('wp_plus_google') == 'checked') {
 ?>
@@ -208,6 +211,7 @@ if (get_option('wp_plus_google') == 'checked') {
 <?php
 }
 ?>
+/*微软雅黑*/
 <?php
 if (get_option('wp_plus_wryh') == 'checked') {
 ?>
