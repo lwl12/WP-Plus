@@ -5,7 +5,7 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.4
+Version: 1.41
 */
 
 /*自动更新机制*/
@@ -28,7 +28,7 @@ if (is_admin()) {
         new WP_GitHub_Updater($config);
     }
 }
-add_action('admin_menu', 'update');
+add_action('init', 'update');
 
 /* 启用插件自动跳转至设置*/
 register_activation_hook(__FILE__, 'wpdaxue_plugin_activate');
@@ -78,7 +78,7 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
-<div id="message" class="updated"><p>WP-Plus 1.4版本更新日志：</br>优化了插件自助更新功能</br>优化多处功能细节</div>
+<div id="message" class="updated"><p>WP-Plus 1.4版本更新日志：</br>尝试修复插件导致后台运行缓慢</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
