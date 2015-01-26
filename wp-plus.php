@@ -98,10 +98,10 @@ function pluginoptions_page()
 ?> /> 启用“替换google相关资源”功能<p>
 <input type="checkbox" name="wryh" id="wryh" <?php
     echo get_option('wp_plus_wryh');
-?> /> 启用“变更后台字体为微软雅黑”功能（刷新后生效）<p>
+?> /> 启用“变更后台字体为微软雅黑”功能<p>
 <input type="checkbox" name="number" id="number" <?php
     echo get_option('wp_plus_number');
-?> 
+?> /> 启用“在前台单击时，出现积分”特效<p>
 <input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 <?php
     echo plus_version;
 ?> &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
