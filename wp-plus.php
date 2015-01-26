@@ -5,9 +5,9 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.45
+Version: 1.46
 */
-define("plus_version", "1.45");
+define("plus_version", "1.46");
 /*自动更新机制*/
 function update()
 {
@@ -143,7 +143,7 @@ function pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_wryh', $display);
-    if ($_post['number'] == 'on') {
+    if ($_POST['number'] == 'on') {
         $display = 'checked';
     } else {
         $display = '';
