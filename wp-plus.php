@@ -5,13 +5,14 @@ Plugin URI: http://blog.lwl12.com/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.43
+Version: 1.45
 */
-
+define("plus_version", "1.45");
 /*自动更新机制*/
-function update() {
-include_once 'updater.php';
-if (is_admin()) { 
+function update()
+{
+    include_once 'updater.php';
+    if (is_admin()) {
         $config = array(
             'slug' => plugin_basename(__FILE__),
             'proper_folder_name' => 'wp-plus',
@@ -23,7 +24,7 @@ if (is_admin()) {
             'requires' => '4.1',
             'tested' => '4.1',
             'readme' => 'README.md',
-            'access_token' => '',
+            'access_token' => ''
         );
         new WP_GitHub_Updater($config);
     }
@@ -78,7 +79,9 @@ function pluginoptions_page()
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
 <h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
-<div id="message" class="updated"><p>WP-Plus 1.43版本更新日志：</br>修复一定条件下，头像加载缓慢的情况</div>
+<div id="message" class="updated"><p>WP-Plus <?php
+    echo plus_version;
+?>版本更新日志：</br>[新增]前台点击出现积分特效</br>[修复]强制开启微软雅黑功能的BUG</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
@@ -89,14 +92,19 @@ function pluginoptions_page()
 ?> /> 启用“隐藏管理工具条”功能<p>
 <input type="checkbox" name="gravatar" id="gravatar" <?php
     echo get_option('wp_plus_gravatar');
-?> /> 启用“gravatar替换到typcn镜像”功能<p>
+?> /> 启用“gravatar替换到铜芯科技镜像”功能<p>
 <input type="checkbox" name="google" id="google" <?php
     echo get_option('wp_plus_google');
 ?> /> 启用“替换google相关资源”功能<p>
 <input type="checkbox" name="wryh" id="wryh" <?php
     echo get_option('wp_plus_wryh');
 ?> /> 启用“变更后台字体为微软雅黑”功能（刷新后生效）<p>
-<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 1.43 &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
+<input type="checkbox" name="number" id="number" <?php
+    echo get_option('wp_plus_number');
+?> 
+<input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 <?php
+    echo plus_version;
+?> &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
 </form>
 </div>
 <?php
@@ -135,6 +143,13 @@ function pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_wryh', $display);
+    if ($_post['number'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_number', $display);
+    
 }
 ?>
 
@@ -148,12 +163,12 @@ if (get_option('wp_plus_jdt') == 'checked') {
     define('WP_NPROGRESS_PLUGIN_URL', plugin_dir_url(__FILE__));
     function wpn_enqueue()
     {
-        wp_enqueue_style('nprogresss', WP_NPROGRESS_PLUGIN_URL . 'nprogress.css');
+        wp_enqueue_style('nprogresss', WP_NPROGRESS_PLUGIN_URL . 'jdt/nprogress.css');
         
-        wp_enqueue_script('nprogress', WP_NPROGRESS_PLUGIN_URL . 'nprogress.js', array(
+        wp_enqueue_script('nprogress', WP_NPROGRESS_PLUGIN_URL . 'jdt/nprogress.js', array(
             'jquery'
         ), '0.1.2', true);
-        wp_enqueue_script('wp-nprogress', WP_NPROGRESS_PLUGIN_URL . 'global.js', array(
+        wp_enqueue_script('wp-nprogress', WP_NPROGRESS_PLUGIN_URL . 'jdt/global.js', array(
             'jquery',
             'nprogress'
         ), '0.0.1', true);
@@ -238,3 +253,16 @@ if (get_option('wp_plus_wryh') == 'checked') {
 <?php
 }
 ?>
+<?php
+/*积分特效*/
+if (get_option('wp_plus_number') == 'checked') {
+?>
+<?php
+    function wp_plus_jifentx()
+    {
+        echo '<script> jQuery(document).ready(function($) { $("html,body").click(function(e){ var n=Math.round(Math.random()*100); var $i=$("<b/>").text("+"+n); var x=e.pageX,y=e.pageY; $i.css({ "z-index":99999, "top":y-20, "left":x, "position":"absolute", "color":"#E94F06" }); $("body").append($i); $i.animate( {"top":y-180,"opacity":0}, 1500, function(){$i.remove();}); e.stopPropagation();});}); </script>';
+    }
+    add_action('wp_footer', 'wp_plus_jifentx');
+}
+?>
+
