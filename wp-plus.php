@@ -1,13 +1,13 @@
 ﻿<?php
 /*
 Plugin Name: WP-Plus
-Plugin URI: http://blog.lwl12.com/wp-plus/
+Plugin URI: http://blog.lwl12.com/read/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.46
+Version: 1.47
 */
-define("plus_version", "1.46");
+define("plus_version", "1.47");
 /*自动更新机制*/
 function update()
 {
@@ -74,14 +74,14 @@ function pluginoptions_page()
 {
     if ($_POST['update_pluginoptions'] == 'true') {
         pluginoptions_update();
+        echo '<div id="message" class="updated"><h4>设置已成功保存，感谢您使用<a href="http://blog.lwl12.com/read/wp-plus">WP-Plus插件！</a></h4></div>';
     }
 ?>
 <div class="wrap">
 <h2>WP Plus 插件控制面板</h2>
-<h3>欢迎使用WP Plus插件，请按需调整插件功能！</h3>
 <div id="message" class="updated"><p>WP-Plus <?php
     echo plus_version;
-?>版本更新日志：</br>[新增]前台点击出现积分特效</br>[修复]强制开启微软雅黑功能的BUG</div>
+?>版本更新日志：</br>[新增]前台点击出现积分特效</br>[修复]强制开启微软雅黑功能的BUG</br>[优化]插件执行逻辑</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
@@ -151,6 +151,7 @@ function pluginoptions_update()
     update_option('wp_plus_number', $display);
     
 }
+
 ?>
 
 <?php
