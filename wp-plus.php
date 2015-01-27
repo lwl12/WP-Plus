@@ -5,9 +5,9 @@ Plugin URI: http://blog.lwl12.com/read/wp-plus/
 Description: 博客多功能增强插件
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.47
+Version: 1.48
 */
-define("plus_version", "1.47");
+define("plus_version", "1.48");
 /*自动更新机制*/
 function update()
 {
@@ -81,7 +81,7 @@ function pluginoptions_page()
 <h2>WP Plus 插件控制面板</h2>
 <div id="message" class="updated"><p>WP-Plus <?php
     echo plus_version;
-?>版本更新日志：</br>[新增]前台点击出现积分特效</br>[修复]强制开启微软雅黑功能的BUG</br>[优化]插件执行逻辑</div>
+?>版本更新日志：</br>[新增]前后台允许注册中文名用户</div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
 <input type="checkbox" name="jdt" id="jdt" <?php
@@ -102,6 +102,9 @@ function pluginoptions_page()
 <input type="checkbox" name="number" id="number" <?php
     echo get_option('wp_plus_number');
 ?> /> 启用“在前台单击时，出现积分”特效<p>
+<input type="checkbox" name="chuser" id="chuser" <?php
+    echo get_option("wp_plus_chuser");
+?> /> 启用“允许添加中文用户名用户”功能<p>
 <input type="submit" class="button-primary" value="保存设置" /> &nbsp WP-Plus 版本 <?php
     echo plus_version;
 ?> &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus">点击获取最新版本 & 说明
@@ -149,6 +152,12 @@ function pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_number', $display);
+    if ($_POST['chuser'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_chuser', $display);
     
 }
 
@@ -266,4 +275,22 @@ if (get_option('wp_plus_number') == 'checked') {
     add_action('wp_footer', 'wp_plus_jifentx');
 }
 ?>
-
+<?php
+/*中文用户*/
+if (get_option('wp_plus_chuser') == 'checked') {
+?>
+<?php
+    add_filter('sanitize_user', 'chinese_user', 3, 3);
+    function chinese_user($username, $raw_username, $strict)
+    {
+        $username = $raw_username;
+        $username = strip_tags($username);
+        $username = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '', $username);
+        $username = preg_replace('/&.+?;/', '', $username);
+        if ($strict)
+            $username = preg_replace('|[^a-z0-9 _.\-@\x80-\xFF]|i', '', $username);
+        $username = preg_replace('|\s+|', ' ', $username);
+        return $username;
+    }
+}
+?>

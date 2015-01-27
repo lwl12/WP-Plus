@@ -6,4 +6,6 @@ wordpress多功能增强插件
 
 [liwanglin12](http://lwl12.com)
 
-~Current Version:1.2~
+## 详细信息
+
+[LWL的自由天空-插件发布帖](http://blog.lwl12.com/read/wp-plus)
