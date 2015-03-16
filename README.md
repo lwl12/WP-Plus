@@ -1,6 +1,6 @@
 # WP-plus
 
-wordpress多功能增强插件
+现已停止GITHUB上的更新，请在wordpress插件中心下载。
 
 ## 作者
 
