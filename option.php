@@ -91,7 +91,7 @@ echo plus_version;
         ?> /> 启用“替换新版本JQuery”功能<p>
         <input type="checkbox" name="copyright" id="copyright" <?php
         echo get_option("wp_plus_copyright");
-        ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="number" value="50" size="3">字时添加<p>
+        ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="number" value="50" size="3" name="copyright_num" id="copyright_num">字时添加<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
@@ -235,5 +235,6 @@ function plus_pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_copyright', $display);
+    update_option('wp_plus_copyright_num', $_POST['copyright_num']);
 }
 ?>
