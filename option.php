@@ -32,68 +32,74 @@ echo plus_version;
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
-<b>界面美化</b><hr />
-<input type="checkbox" name="jdt" id="jdt" <?php
-echo get_option('wp_plus_jdt');
-?> /> 启用“加载进度条”功能<p>
-<input type="checkbox" name="glgjt" id="glgjt" <?php
-echo get_option('wp_plus_glgjt');
-?> /> 启用“隐藏管理工具条”功能<p>
-<input type="checkbox" name="wryh" id="wryh" <?php
-echo get_option('wp_plus_wryh');
-?> /> 启用“变更后台字体为微软雅黑”功能<p>
-<input type="checkbox" name="number" id="number" <?php
-echo get_option('wp_plus_number');
-?> /> 启用“在前台单击时，出现积分”特效<p>
-<input type="checkbox" name="bingbg" id="bingbg" <?php
-echo get_option("wp_plus_bingbg");
-?> /> 启用“调用Bing背景作为登录页背景”功能<p>
-<input type="checkbox" name="welcomemsg" id="welcomemsg" <?php
-echo get_option("wp_plus_welcomemsg");
-?> /> 启用“访客欢迎信息显示”功能<p>
-<input type="checkbox" name="codehl" id="codehl" <?php
-echo get_option("wp_plus_codehl");
-?> /> 启用“代码高亮”功能<p>
-<b>优化增强</b><hr />
-<input type="checkbox" name="gravatar" id="gravatar" <?php
-echo get_option('wp_plus_gravatar');
-?> /> 启用“Gravatar替换到Geekzu镜像”功能<p>
-<input type="checkbox" name="chuser" id="chuser" <?php
-echo get_option("wp_plus_chuser");
-?> /> 启用“允许添加中文用户名用户”功能<p>
-<input type="checkbox" name="ping" id="ping" <?php
-echo get_option("wp_plus_ping");
-?> /> 启用“禁止站内文章互相pingback”功能<p>
-<input type="checkbox" name="nofollow" id="nofollow" <?php
-echo get_option("wp_plus_nofollow");
-?> /> 启用“自动添加a标签nofollow与target="_blank"属性”功能<p>
-<input type="checkbox" name="replaceurl" id="replaceurl" <?php
-echo get_option("wp_plus_replaceurl");
-?> /> 启用“使用相对链接替换绝对链接”功能<p>
-<input type="checkbox" name="simplifyhead" id="simplifyhead" <?php
-echo get_option("wp_plus_simplifyhead");
-?> /> 启用“移除部分风险/无用头部信息”功能<p>
-<input type="checkbox" name="ietip" id="ietip" <?php
-echo get_option("wp_plus_ietip");
-?> /> 启用“提示IE10以下IE用户更换浏览器”功能<p>
-<input type="checkbox" name="linkman" id="linkman" <?php
-echo get_option("wp_plus_linkman");
-?> /> 启用“WP原生链接管理器”功能<p>
-<input type="checkbox" name="google" id="google" <?php
-echo get_option("wp_plus_google");
-?> /> 启用“替换Google API”功能<p>
-<input type="checkbox" name="jquery" id="jquery" <?php
-echo get_option("wp_plus_jquery");
-?> /> 启用“替换新版本JQuery”功能<p>
-<input type="checkbox" name="copyright" id="copyright" <?php
-echo get_option("wp_plus_copyright");
-?> /> 启用“复制文字时自动添加版权信息”功能<p>
-<input type="submit" class="button-primary" value="保存设置" /> &nbsp; WP-Plus 版本 <?php
-echo plus_version;
-?> &nbsp; 插件作者 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
+    <h3>界面美化</h3>
+    <div style="margin-left: 50px">
+        <input type="checkbox" name="jdt" id="jdt" <?php
+        echo get_option('wp_plus_jdt');
+        ?> /> 启用“加载进度条”功能<p>
+        <input type="checkbox" name="glgjt" id="glgjt" <?php
+        echo get_option('wp_plus_glgjt');
+        ?> /> 启用“隐藏管理工具条”功能<p>
+        <input type="checkbox" name="wryh" id="wryh" <?php
+        echo get_option('wp_plus_wryh');
+        ?> /> 启用“变更后台字体为微软雅黑”功能<p>
+        <input type="checkbox" name="number" id="number" <?php
+        echo get_option('wp_plus_number');
+        ?> /> 启用“在前台单击时，出现积分”特效<p>
+        <input type="checkbox" name="bingbg" id="bingbg" <?php
+        echo get_option("wp_plus_bingbg");
+        ?> /> 启用“调用Bing背景作为登录页背景”功能<p>
+        <input type="checkbox" name="welcomemsg" id="welcomemsg" <?php
+        echo get_option("wp_plus_welcomemsg");
+        ?> /> 启用“访客欢迎信息显示”功能<p>
+        <input type="checkbox" name="codehl" id="codehl" <?php
+        echo get_option("wp_plus_codehl");
+        ?> /> 启用“代码高亮”功能<p>
+    </div>
+    <hr>
+    <h3>优化增强</h3>
+    <div style="margin-left: 50px">
+        <input type="checkbox" name="gravatar" id="gravatar" <?php
+        echo get_option('wp_plus_gravatar');
+        ?> /> 启用“Gravatar替换到Geekzu镜像”功能<p>
+        <input type="checkbox" name="chuser" id="chuser" <?php
+        echo get_option("wp_plus_chuser");
+        ?> /> 启用“允许添加中文用户名用户”功能<p>
+        <input type="checkbox" name="ping" id="ping" <?php
+        echo get_option("wp_plus_ping");
+        ?> /> 启用“禁止站内文章互相pingback”功能<p>
+        <input type="checkbox" name="nofollow" id="nofollow" <?php
+        echo get_option("wp_plus_nofollow");
+        ?> /> 启用“自动添加a标签nofollow与target="_blank"属性”功能<p>
+        <input type="checkbox" name="replaceurl" id="replaceurl" <?php
+        echo get_option("wp_plus_replaceurl");
+        ?> /> 启用“使用相对链接替换绝对链接”功能<p>
+        <input type="checkbox" name="simplifyhead" id="simplifyhead" <?php
+        echo get_option("wp_plus_simplifyhead");
+        ?> /> 启用“移除部分风险/无用头部信息”功能<p>
+        <input type="checkbox" name="ietip" id="ietip" <?php
+        echo get_option("wp_plus_ietip");
+        ?> /> 启用“提示IE10以下IE用户更换浏览器”功能<p>
+        <input type="checkbox" name="linkman" id="linkman" <?php
+        echo get_option("wp_plus_linkman");
+        ?> /> 启用“WP原生链接管理器”功能<p>
+        <input type="checkbox" name="google" id="google" <?php
+        echo get_option("wp_plus_google");
+        ?> /> 启用“替换Google API”功能<p>
+        <input type="checkbox" name="jquery" id="jquery" <?php
+        echo get_option("wp_plus_jquery");
+        ?> /> 启用“替换新版本JQuery”功能<p>
+        <input type="checkbox" name="copyright" id="copyright" <?php
+        echo get_option("wp_plus_copyright");
+        ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="text" value="50" size="3">字时添加<p>
+    </div>
+    <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
+    echo plus_version;
+    ?> &nbsp; 插件作者 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
 </form>
 
-<hr />
+<hr>
+
 <p>DEBUG中心</p>此处信息供出现问题时作者分析使用！请勿随意触动此处按钮！<br />
 <?php
 echo ("下次报告时间");
@@ -104,18 +110,16 @@ var_dump(get_option('wp_plus_uuid'));
 echo ("<br />");
 ?>
 <form method="POST" action="">
-<input type="hidden" name="plus_empty_cron" value="true" />
-<input type="submit" class="button" value="清空计划任务设置" />
+    <input type="hidden" name="plus_empty_cron" value="true" />
+    <input type="submit" class="button" value="清空计划任务设置"  style="margin: 10px 0;" />
 </form>
 <form method="POST" action="">
-<input type="hidden" name="plus_update_info" value="true" />
-<input type="submit" class="button" value="发送信息刷新事件" />
-</form>
+    <input type="hidden" name="plus_update_info" value="true" />
+    <input type="submit" class="button" value="发送信息刷新事件"  style="margin: 10px 0;" />
 </form>
 <form method="POST" action="">
-<input type="hidden" name="plus_post_open" value="true" />
-<input type="submit" class="button" value="发送插件启用事件" />
-</form>
+    <input type="hidden" name="plus_post_open" value="true" />
+    <input type="submit" class="button" value="发送插件启用事件"  style="margin: 10px 0;" />
 </form>
 </div>
 <?php
