@@ -25,10 +25,10 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[LWL小提示]圣诞快乐！
-[修复]在HTTPS下访客欢迎信息显示出错的问题
-[新增]同时开启访客欢迎和链接管理的情况下，访客欢迎将会自动匹配链接管理器中的站点名称
-[新增]复制文字时自动添加版权信息功能（感谢@DIYgod 提供代码）
+[LWL小提示]圣诞快乐！<br />
+[修复]在HTTPS下访客欢迎信息显示出错的问题<br />
+[新增]同时开启访客欢迎和链接管理的情况下，访客欢迎将会自动匹配链接管理器中的站点名称<br />
+[新增]复制文字时自动添加版权信息功能（感谢@DIYgod 提供代码）<br />
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -91,7 +91,7 @@ echo plus_version;
         ?> /> 启用“替换新版本JQuery”功能<p>
         <input type="checkbox" name="copyright" id="copyright" <?php
         echo get_option("wp_plus_copyright");
-        ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="text" value="50" size="3">字时添加<p>
+        ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="number" value="50" size="3">字时添加<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
