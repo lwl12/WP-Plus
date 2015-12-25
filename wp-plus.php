@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.67
+Version: 1.68
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.67");
+define("plus_version", "1.68");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -428,10 +428,10 @@ if (get_option('wp_plus_copyright') == 'checked') {
     function plus_copyright()
     {
         if (is_single()) {
-            echo '<script>document.body.addEventListener(\'copy\', function (e) { if (window.getSelection().toString().length > 50) { setClipboardText(e); alert(\'商业转载请联系作者获得授权，非商业转载请注明出处，谢谢合作。\'); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = '' + \'著作权归作者所有。<br>\' + \'商业转载请联系作者获得授权，非商业转载请注明出处。<br>\' + \'作者：'.get_the_author().'<br>\' + \'链接：\' + window.location.href + \'<br>\' + \'来源：'.get_bloginfo('name').'<br><br>\' + window.getSelection().toString(); var textData = \'\' + \'著作权归作者所有。\n\' + \'商业转载请联系作者获得授权，非商业转载请注明出处。\n\' + \'作者：'.get_the_author().'\n\' + \'链接：\' + window.location.href + \'\n\' + \'来源：.get_bloginfo('name').\n\n\' + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
+            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); alert("商业转载请联系作者获得授权，非商业转载请注明出处，谢谢合作。"); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
         }
     }
-    add_action('wp_head', 'plus_copyright');
+    add_action('wp_footer', 'plus_copyright');
 ?>
 <?php
 }
