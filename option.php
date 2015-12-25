@@ -25,7 +25,10 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[新增]替换新版本JQuery功能
+[LWL小提示]圣诞快乐！
+[修复]在HTTPS下访客欢迎信息显示出错的问题
+[新增]同时开启访客欢迎和链接管理的情况下，访客欢迎将会自动匹配链接管理器中的站点名称
+[新增]复制文字时自动添加版权信息功能（感谢@DIYgod 提供代码）
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -82,9 +85,12 @@ echo get_option("wp_plus_google");
 <input type="checkbox" name="jquery" id="jquery" <?php
 echo get_option("wp_plus_jquery");
 ?> /> 启用“替换新版本JQuery”功能<p>
+<input type="checkbox" name="copyright" id="copyright" <?php
+echo get_option("wp_plus_copyright");
+?> /> 启用“复制文字时自动添加版权信息”功能<p>
 <input type="submit" class="button-primary" value="保存设置" /> &nbsp; WP-Plus 版本 <?php
 echo plus_version;
-?> &nbsp; 插件作者为 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
+?> &nbsp; 插件作者 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
 </form>
 
 <hr />
@@ -219,5 +225,11 @@ function plus_pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_jquery', $display);
+    if ($_POST['copyright'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_copyright', $display);
 }
 ?>
