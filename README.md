@@ -77,4 +77,4 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 
 ## 详细信息
 
-[LWL的自由天空-插件发布帖](http://blog.lwl12.com/read/wp-plus)
+[LWL的自由天空-插件发布帖](https://blog.lwl12.com/read/wp-plus.html)
