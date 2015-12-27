@@ -18,9 +18,9 @@ function welcome_msg()
         $host_h,
         $host_p
     );
-    $host_hfull = $host_h;
+    $host_hfull  = $host_h;
     if (substr($host_h, 0, 4) == 'www.')
-    $host_h     = substr($host_h, 4);
+        $host_h = substr($host_h, 4);
     $host_h_url = '<a href="' . $host_scheme . '://' . $host_hfull . '/">$host_h</a>';
     if ($referer == "") {
         $callback = "<!--您直接访问了本站!-->\n";
@@ -62,8 +62,13 @@ function welcome_msg()
     } elseif (self()) { //若来路是自己的网站
         //$callback = "你在找什么呢？试试上面的搜索吧~"."\n";
         $callback = false;
-    } elseif (get_option('wp_plus_linkman') == 'checked' && get_bookmarks(array('search' => $host_hfull))) {
-        $callback = '欢迎来自友站<strong> ' . get_bookmarks(array('search' => $host_hfull))[0]->link_name . ' </strong>的小伙伴~ 也请多多关注我哦 ^_^ ';
+    } elseif (get_option('wp_plus_linkman') == 'checked' && get_bookmarks(array(
+        'search' => $host_hfull
+    ))) {
+        $linktemp = get_bookmarks(array(
+            'search' => $host_hfull
+        ));
+        $callback = '欢迎来自友站<strong> ' . $linktemp[0]->link_name . ' </strong>的小伙伴~ 也请多多关注我哦 ^_^ ';
     } elseif ($_COOKIE["comment_author_" . COOKIEHASH] != "") {
         $callback = 'Howdy, <strong>' . $_COOKIE["comment_author_" . COOKIEHASH] . '</strong>欢迎从<strong>' . $host_h . '</strong>回来';
     } else {
