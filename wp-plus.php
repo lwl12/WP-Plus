@@ -419,7 +419,8 @@ if (get_option('wp_plus_copyright') == 'checked') {
     function plus_copyright()
     {
         if (is_single()) {
-            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); alert("商业转载请联系作者获得授权，非商业转载请注明出处，谢谢合作。"); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
+            plus_loadsweetalert();
+            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); swal({ title: "版权警告", text: "商业转载请联系作者获得授权\r\n非商业转载请注明出处", type: "warning", confirmButtonColor: "#DD6B55", confirmButtonText: "了解!", closeOnConfirm: false }, function(){ swal({ title: "感谢支持", text: "尊重原创，保护版权", type: "success", timer: 2000 }); }); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
         }
     }
     add_action('wp_footer', 'plus_copyright');
@@ -465,5 +466,11 @@ function plus_post($action)
 function plus_updateinfo()
 {
     return (plus_post("update"));
+}
+function plus_loadsweetalert(){
+    wp_register_script('sweetalertJS', WP_PLUS_URL . 'sweetalert/sweetalert.min.js');
+    wp_register_style('sweetalertCSS', WP_PLUS_URL . 'sweetalert/sweetalert.css');
+    wp_enqueue_script('sweetalertJS');
+    wp_enqueue_style('sweetalertCSS');
 }
 ?>
