@@ -25,10 +25,8 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[LWL小提示]圣诞快乐！<br />
-[修复]在HTTPS下访客欢迎信息显示出错的问题<br />
-[新增]同时开启访客欢迎和链接管理的情况下，访客欢迎将会自动匹配链接管理器中的站点名称<br />
-[新增]复制文字时自动添加版权信息功能（感谢@DIYgod 提供代码）<br />
+[优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist）<br />
+[新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效<br />
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />

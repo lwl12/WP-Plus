@@ -16,6 +16,9 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
 ## Change log
+= 1.69 =
+[优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist [notie](https://github.com/egoist/notie)项目）
+[新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效
 
 = 1.68 =  
 [修复]在HTTPS下访客欢迎信息显示出错的问题  
