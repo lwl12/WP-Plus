@@ -302,21 +302,13 @@ if (get_option('wp_plus_welcomemsg') == 'checked') {
 ?>
 <?php
     require "welcomemsg.php";
-    function plus_welcomemsg_css()
-    {
-        echo '<style type="text/css">#hellobaby { width: 200px; background:#000000; border:1px solid #B3B3B3; color:#FFFFFF; font-size:14px; opacity:0.7; filter:alpha(opacity=70); padding: 10px 10px 10px 10px; position:fixed; right:0; top:150px; z-index:999; } .closebox{float:left;text-align:center;font-size:26px;margin-top:0px;padding: 0 10px 0 0;} .closebox a{border-bottom: none;}</style>';
-    }
     function plus_welcomemsg()
     {
         $msg = welcome_msg();
         if ($msg !== false) {
-            echo "<script type=\"text/javascript\"> (function(){ var wait = 10; var interval = setInterval(function(){ var time = --wait; if(time <= 0) { $('#hellobaby').animate({right:'-20000px'}).hide(); clearInterval(interval); }; }, 1000); })(); </script>";
-            echo '<div id="hellobaby"> <div class="closebox"><a href="javascript:void(0)" onclick="$(\'#hellobaby\').animate({right:\'-20000px\'});" title="关闭">×</a></div>';
-            echo $msg;
-            echo '</div>';
+            echo "<script>notie('info', '$msg', true)</script>";
         }
     }
-    add_action('wp_head', 'plus_welcomemsg_css');
     add_action('wp_footer', 'plus_welcomemsg');
 ?>
 <?php
@@ -419,11 +411,30 @@ if (get_option('wp_plus_copyright') == 'checked') {
     function plus_copyright()
     {
         if (is_single()) {
-            plus_loadsweetalert();
-            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); swal({ title: "版权警告", text: "商业转载请联系作者获得授权\r\n非商业转载请注明出处", type: "warning", confirmButtonColor: "#DD6B55", confirmButtonText: "了解!", closeOnConfirm: false }, function(){ swal({ title: "感谢支持", text: "尊重原创，保护版权", type: "success", timer: 2000 }); }); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
+            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); notie("error", "商业转载请联系作者获得授权，非商业转载请注明出处", true); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . get_the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . get_the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
         }
     }
     add_action('wp_footer', 'plus_copyright');
+?>
+<?php
+}
+?>
+<?php
+/*久远文章提示*/
+if (get_option('wp_plus_oldpost') == 'checked') {
+?>
+<?php
+    
+    function plus_oldpost()
+    {
+        if (is_single()) {
+            $time = time() - get_the_modified_date('U');
+            if ($time > get_option("wp_plus_oldpost_num") * 86400) {
+                echo "<script>notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true)</script>";
+            }
+        }
+    }
+    add_action('wp_footer', 'plus_oldpost');
 ?>
 <?php
 }
@@ -467,10 +478,9 @@ function plus_updateinfo()
 {
     return (plus_post("update"));
 }
-function plus_loadsweetalert(){
-    wp_register_script('sweetalertJS', WP_PLUS_URL . 'sweetalert/sweetalert.min.js');
-    wp_register_style('sweetalertCSS', WP_PLUS_URL . 'sweetalert/sweetalert.css');
+function plus_loadalert(){
+    wp_register_script('sweetalertJS', WP_PLUS_URL . 'alert/notie.js');
     wp_enqueue_script('sweetalertJS');
-    wp_enqueue_style('sweetalertCSS');
 }
+add_action('wp_enqueue_scripts', 'plus_loadalert');
 ?>

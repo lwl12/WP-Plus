@@ -92,6 +92,9 @@ echo plus_version;
         <input type="checkbox" name="copyright" id="copyright" <?php
         echo get_option("wp_plus_copyright");
         ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="number" value="<?php echo get_option("wp_plus_copyright_num") ? get_option("wp_plus_copyright_num") : "30";?>" size="3" name="copyright_num" id="copyright_num" required="required"/>字时添加<p>
+        <input type="checkbox" name="oldpost" id="oldpost" <?php
+        echo get_option("wp_plus_oldpost");
+        ?> /> 启用“久远文章提示”功能: 文章最后修改时间距现在<input type="number" value="<?php echo get_option("wp_plus_oldpost_num") ? get_option("wp_plus_oldpost_num") : "31";?>" size="3" name="oldpost_num" id="oldpost_num" required="required"/>天时提醒<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
@@ -236,5 +239,12 @@ function plus_pluginoptions_update()
     }
     update_option('wp_plus_copyright', $display);
     update_option('wp_plus_copyright_num', $_POST['copyright_num']);
+    if ($_POST['oldpost'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_oldpost', $display);
+    update_option('wp_plus_oldpost_num', $_POST['oldpost_num']);
 }
 ?>

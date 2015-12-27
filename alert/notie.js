@@ -105,7 +105,7 @@ var notie = function(t) {
                         e.classList.add("notie-shown")
                     }, 100), this.notie = e, this.opts.autoHide ? setTimeout(function() {
                         t.removeNotie()
-                    }, 3e3) : (e.addEventListener("click", function() {
+                    }, 10e3) : (e.addEventListener("click", function() {
                         t.removeNotie(e)
                     }), e.querySelector("a").addEventListener("click", function(t) {
                         t.stopPropagation()
