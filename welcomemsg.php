@@ -63,7 +63,7 @@ function welcome_msg()
         //$callback = "你在找什么呢？试试上面的搜索吧~"."\n";
         $callback = false;
     } elseif (get_option('wp_plus_linkman') == 'checked' && get_bookmarks(array('search' => $host_hfull))) {
-        $callback = '欢迎来自友站<strong>' . get_bookmarks(array('search' => $host_hfull))[0]->link_name . '</strong>的小伙伴~ 也请多多关注我哦 ^_^ ';
+        $callback = '欢迎来自友站<strong> ' . get_bookmarks(array('search' => $host_hfull))[0]->link_name . ' </strong>的小伙伴~ 也请多多关注我哦 ^_^ ';
     } elseif ($_COOKIE["comment_author_" . COOKIEHASH] != "") {
         $callback = 'Howdy, <strong>' . $_COOKIE["comment_author_" . COOKIEHASH] . '</strong>欢迎从<strong>' . $host_h . '</strong>回来';
     } else {
