@@ -25,7 +25,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist）<br />
+[优化]更换Gravatar镜像为tycdn<br />
 [新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效<br />
 </div>
 <form method="POST" action="">
@@ -59,7 +59,7 @@ echo plus_version;
     <div style="margin-left: 50px">
         <input type="checkbox" name="gravatar" id="gravatar" <?php
         echo get_option('wp_plus_gravatar');
-        ?> /> 启用“Gravatar替换到Geekzu镜像”功能<p>
+        ?> /> 启用“Gravatar替换到TYCDN镜像”功能<p>
         <input type="checkbox" name="chuser" id="chuser" <?php
         echo get_option("wp_plus_chuser");
         ?> /> 启用“允许添加中文用户名用户”功能<p>

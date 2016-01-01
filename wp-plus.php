@@ -112,7 +112,7 @@ if (get_option('wp_plus_glgjt') == 'checked') {
 if (get_option('wp_plus_gravatar') == 'checked') {
 ?>
 <?php
-    function plus_geekzu_avatar($avatar)
+    function plus_tycdn_avatar($avatar)
     {
         $avatar = str_replace(array(
             "www.gravatar.com",
@@ -120,10 +120,10 @@ if (get_option('wp_plus_gravatar') == 'checked') {
             "1.gravatar.com",
             "2.gravatar.com",
             "secure.gravatar.com"
-        ), "sdn.geekzu.org", $avatar);
+        ), "gravatar.tycdn.net", $avatar);
         return $avatar;
     }
-    add_filter('get_avatar', 'plus_geekzu_avatar', 10, 3);
+    add_filter('get_avatar', 'plus_tycdn_avatar', 10, 3);
 ?>
 <?php
 }
