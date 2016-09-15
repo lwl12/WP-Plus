@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: http://lwl12.com
-Version: 1.69
+Version: 1.71
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.69");
+define("plus_version", "1.71");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -239,11 +239,8 @@ if (get_option('wp_plus_bingbg') == 'checked') {
     // 调用Bing美图作为登陆界面背景 //
     function plus_bingbg()
     {
-        $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
-        if (preg_match("/<url>(.+?)<\/url>/ies", $str, $matches)) {
-            $imgurl = '//cn.bing.com' . $matches[1];
+            $imgurl = 'https://api.i-meto.com/bing?new&blur';
             echo '<style type="text/css">body{background: url(' . $imgurl . ');width:100%;height:100%;background-image:url(' . $imgurl . ');-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-repeat:no-repeat\9;background-image:none\9;}</style>';
-        }
     }
     add_action('login_head', 'plus_bingbg');
 ?>
@@ -410,8 +407,9 @@ if (get_option('wp_plus_copyright') == 'checked') {
     
     function plus_copyright()
     {
+        echo '<script>function plus_copyright(){document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); notie("error", "商业转载请联系作者获得授权，非商业转载请注明出处", true); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . get_the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . get_the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }}</script>';
         if (is_single()) {
-            echo '<script>document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); notie("error", "商业转载请联系作者获得授权，非商业转载请注明出处", true); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . get_the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . get_the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }</script>';
+            echo '<script>plus_copyright();</script>';
         }
     }
     add_action('wp_footer', 'plus_copyright');
@@ -425,16 +423,48 @@ if (get_option('wp_plus_oldpost') == 'checked') {
 ?>
 <?php
     
-    function plus_oldpost()
+    function plus_oldpost($content)
     {
         if (is_single()) {
             $time = time() - get_the_modified_date('U');
             if ($time > get_option("wp_plus_oldpost_num") * 86400) {
-                echo "<script>notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true)</script>";
+                return $content . "<script>window.plus_oldpost = function(){notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true);};plus_oldpost();</script>";
             }
         }
+        return $content;
     }
-    add_action('wp_footer', 'plus_oldpost');
+    add_filter('the_content', 'plus_oldpost');
+?>
+<?php
+}
+?>
+<?php
+/*禁用emoji*/
+if (get_option('wp_plus_disable_emoji') == 'checked') {
+?>
+<?php
+/**
+ * 禁用emoji
+ */
+function disable_emoji() {
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	add_filter( 'tiny_mce_plugins', 'disable_emoji_tinymce' );
+}
+add_action( 'init', 'disable_emoji' );
+
+function disable_emoji_tinymce( $plugins ) {
+	if ( is_array( $plugins ) ) {
+		return array_diff( $plugins, array( 'wpemoji' ) );
+	} else {
+		return array();
+	}
+}
 ?>
 <?php
 }
@@ -465,7 +495,7 @@ function plus_post($action)
         'action' => $action
     );
     
-    $response = wp_remote_post('http://api.lwl12.com/wordpress/plugin/wpplus/post.php', array(
+    $response = wp_remote_post('https://api.lwl12.com/wordpress/plugin/wpplus/post.php', array(
         'body' => $args
     ));
     
@@ -479,8 +509,8 @@ function plus_updateinfo()
     return (plus_post("update"));
 }
 function plus_loadalert(){
-    wp_register_script('sweetalertJS', WP_PLUS_URL . 'alert/notie.js');
-    wp_enqueue_script('sweetalertJS');
+    wp_register_script('notieJS', WP_PLUS_URL . 'alert/notie.js');
+    wp_enqueue_script('notieJS');
 }
 add_action('wp_enqueue_scripts', 'plus_loadalert');
 ?>

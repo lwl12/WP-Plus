@@ -3,7 +3,7 @@ Contributors: liwanglin12
 Donate link: http://lwl12.com/
 Tags: wordpressplus, wpplus, 增强, 优化, Enhancement, optimization
 Requires at least: 3.0
-Tested up to: 4.4
+Tested up to: 4.5
 Stable tag: 1.3
 License: GPLv2 or later
 
@@ -28,6 +28,8 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 1. WP-Plus
 
 == Changelog ==
+= 1.71 =
+[新增]我也忘了我到底改了些什么，先凑合用，有啥问题再修好了。。。
 = 1.69 =
 [优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist）
 [新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效

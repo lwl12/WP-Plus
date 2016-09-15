@@ -25,8 +25,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[优化]更换Gravatar镜像为tycdn<br />
-[新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效<br />
+[新增]我也忘了我到底改了些什么，先凑合用，有啥问题再修好了。。。<br />
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -93,6 +92,9 @@ echo plus_version;
         <input type="checkbox" name="oldpost" id="oldpost" <?php
         echo get_option("wp_plus_oldpost");
         ?> /> 启用“久远文章提示”功能: 文章最后修改时间距现在<input type="number" value="<?php echo get_option("wp_plus_oldpost_num") ? get_option("wp_plus_oldpost_num") : "31";?>" size="3" name="oldpost_num" id="oldpost_num" required="required"/>天时提醒<p>
+        <input type="checkbox" name="disable_emoji" id="disable_emoji" <?php
+        echo get_option("wp_plus_disable_emoji");
+        ?> /> 启用“禁用自带 Emoji”功能<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
@@ -244,5 +246,12 @@ function plus_pluginoptions_update()
     }
     update_option('wp_plus_oldpost', $display);
     update_option('wp_plus_oldpost_num', $_POST['oldpost_num']);
+
+    if ($_POST['disable_emoji'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_disable_emoji', $display);
 }
 ?>
