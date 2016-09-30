@@ -340,8 +340,8 @@ if (get_option('wp_plus_google') == 'checked') {
 <?php
     function wp_plus_google($buffer)
     {
-        $buffer = str_replace("fonts.googleapis.com", "fonts.geekzu.org", $buffer);
-        $buffer = str_replace("ajax.googleapis.com", "sdn.geekzu.org/ajax", $buffer);
+        $buffer = str_replace("fonts.geekzu.org", "fonts.geekzu.org", $buffer);
+        $buffer = str_replace("sdn.geekzu.org/ajax", "sdn.geekzu.org/ajax", $buffer);
         return $buffer;
     }
     function wp_plus_google_start()
@@ -428,7 +428,7 @@ if (get_option('wp_plus_oldpost') == 'checked') {
         if (is_single()) {
             $time = time() - get_the_modified_date('U');
             if ($time > get_option("wp_plus_oldpost_num") * 86400) {
-                return $content . "<script>window.plus_oldpost = function(){notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true);};plus_oldpost();</script>";
+               return $content . "<script>function plus_oldpost(){notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true);};plus_oldpost();</script>";
             }
         }
         return $content;
