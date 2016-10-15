@@ -1,20 +1,5 @@
 <?php
 defined('ABSPATH') or exit;
-if ($_POST['plus_empty_cron'] == 'true') {
-    echo '<div id="message" class="updated"><h4>操作已完成！';
-    var_dump(wp_clear_scheduled_hook('plus_hook_update'));
-    echo '</h4></div>';
-}
-if ($_POST['plus_update_info'] == 'true') {
-    echo '<div id="message" class="updated"><h4>操作已完成！';
-    var_dump(plus_updateinfo());
-    echo '</h4></div>';
-}
-if ($_POST['plus_post_open'] == 'true') {
-    echo '<div id="message" class="updated"><h4>操作已完成！';
-    var_dump(plus_post("activate"));
-    echo '</h4></div>';
-}
 if ($_POST['update_pluginoptions'] == 'true') {
     plus_pluginoptions_update();
     echo '<div id="message" class="updated"><h4>设置已成功保存，感谢您使用<a href="http://blog.lwl12.com/read/wp-plus.html">WP-Plus插件！</a></h4></div>';
@@ -25,7 +10,10 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[新增]我也忘了我到底改了些什么，先凑合用，有啥问题再修好了。。。<br />
+[优化]更新 iedie<br />
+[优化]更新 notie<br />
+[优化]优化目录结构<br />
+[移除]插件回报逻辑
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -98,33 +86,9 @@ echo plus_version;
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
-    ?> &nbsp; 插件作者 <a href="http://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
+    ?> &nbsp; 插件作者 <a href="https://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
 </form>
 
-<hr>
-
-<p>DEBUG中心</p>此处信息供出现问题时作者分析使用！请勿随意触动此处按钮！<br />
-<?php
-echo ("下次报告时间");
-var_dump(wp_next_scheduled('plus_hook_update'));
-echo ("<br />");
-echo ("UUID");
-var_dump(get_option('wp_plus_uuid'));
-echo ("<br />");
-?>
-<form method="POST" action="">
-    <input type="hidden" name="plus_empty_cron" value="true" />
-    <input type="submit" class="button" value="清空计划任务设置"  style="margin: 10px 0;" />
-</form>
-<form method="POST" action="">
-    <input type="hidden" name="plus_update_info" value="true" />
-    <input type="submit" class="button" value="发送信息刷新事件"  style="margin: 10px 0;" />
-</form>
-<form method="POST" action="">
-    <input type="hidden" name="plus_post_open" value="true" />
-    <input type="submit" class="button" value="发送插件启用事件"  style="margin: 10px 0;" />
-</form>
-</div>
 <?php
 /* 插件设置验证*/
 function plus_pluginoptions_update()

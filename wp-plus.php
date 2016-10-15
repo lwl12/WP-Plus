@@ -4,32 +4,21 @@ Plugin Name: WP-Plus
 Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
-Author URI: http://lwl12.com
-Version: 1.71
+Author URI: https://lwl12.com
+Version: 1.72
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.71");
+define("plus_version", "1.72");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
 register_deactivation_hook(__FILE__, 'plus_plugin_deactivate');
-add_action('plus_hook_update', 'plus_updateinfo');
 add_action('admin_init', 'plus_plugin_redirect');
-function plus_plugin_activate()
-{
-    add_option('do_activation_redirect', true);
-    for ($i = 0; $i <= 10; $i++) {
-        if (plus_post("activate") == "success") {
-            break;
-        }
-    }
-}
+
 
 function plus_plugin_redirect()
 {
-    if (!wp_next_scheduled('plus_hook_update'))
-        wp_schedule_event(time() + 60, 'hourly', 'plus_hook_update');
     if (get_option('do_activation_redirect', false)) {
         delete_option('do_activation_redirect');
         wp_redirect(admin_url('options-general.php?page=wp_plus'));
@@ -83,12 +72,12 @@ if (get_option('wp_plus_jdt') == 'checked') {
     
     function plus_wpn_enqueue()
     {
-        wp_enqueue_style('nprogresss', WP_PLUS_URL . 'jdt/nprogress.css');
+        wp_enqueue_style('nprogresss', WP_PLUS_URL . 'css/nprogress.css?ver=' . plus_version);
         
-        wp_enqueue_script('nprogress', WP_PLUS_URL . 'jdt/nprogress.js', array(
+        wp_enqueue_script('nprogress', WP_PLUS_URL . 'js/nprogress.js?ver=' . plus_version, array(
             'jquery'
         ), '0.1.2', true);
-        wp_enqueue_script('wp-nprogress', WP_PLUS_URL . 'jdt/global.js', array(
+        wp_enqueue_script('wp-nprogress', WP_PLUS_URL . 'js/global.js?ver=' . plus_version, array(
             'jquery',
             'nprogress'
         ), '0.0.1', true);
@@ -303,7 +292,7 @@ if (get_option('wp_plus_welcomemsg') == 'checked') {
     {
         $msg = welcome_msg();
         if ($msg !== false) {
-            echo "<script>notie('info', '$msg', true)</script>";
+            echo "<script>notie('$msg', {type:'info', autoHide:true, timeout: 5000,width:200})</script>";
         }
     }
     add_action('wp_footer', 'plus_welcomemsg');
@@ -317,7 +306,7 @@ if (get_option('wp_plus_ietip') == 'checked') {
 <?php
     function plus_ietip()
     {
-        echo '<!--[if lt IE 10]><script src="//wuyongzhiyong.b0.upaiyun.com/iedie/v1.1/script.min.js"></script><![endif]-->';
+        echo '<!--[if lt IE 10]><script src="' . WP_PLUS_URL . 'js/iedie.min.js"></script><![endif]-->';
     }
     add_action('wp_head', 'plus_ietip');
 ?>
@@ -340,8 +329,8 @@ if (get_option('wp_plus_google') == 'checked') {
 <?php
     function wp_plus_google($buffer)
     {
-        $buffer = str_replace("fonts.geekzu.org", "fonts.geekzu.org", $buffer);
-        $buffer = str_replace("sdn.geekzu.org/ajax", "sdn.geekzu.org/ajax", $buffer);
+        $buffer = str_replace("fonts.googleapis.com", "fonts.geekzu.org", $buffer);
+        $buffer = str_replace("ajax.googleapis.com", "sdn.geekzu.org/ajax", $buffer);
         return $buffer;
     }
     function wp_plus_google_start()
@@ -365,12 +354,12 @@ if (get_option('wp_plus_codehl') == 'checked') {
 <?php
     function plus_add_prismjs()
     {
-        wp_register_script('prismJS', WP_PLUS_URL . 'plus_prism.js');
+        wp_register_script('prismJS', WP_PLUS_URL . 'js/plus_prism.js?ver=' . plus_version);
         wp_enqueue_script('prismJS');
     }
     function plus_add_prismcss()
     {
-        wp_register_style('prismCSS', WP_PLUS_URL . 'plus_prism.css');
+        wp_register_style('prismCSS', WP_PLUS_URL . 'css/plus_prism.css?ver=' . plus_version);
         wp_enqueue_style('prismCSS');
     }
     add_action('wp_enqueue_scripts', 'plus_add_prismjs');
@@ -390,7 +379,7 @@ if (get_option('wp_plus_jquery') == 'checked') {
     {
         if (!is_admin()) {
             wp_deregister_script('jquery');
-            wp_register_script('jquery', (WP_PLUS_URL . 'jquery.min.js'), false, null, true);
+            wp_register_script('jquery', (WP_PLUS_URL . 'js/jquery-1.8.2.min.js?ver=' . plus_version), false, null, true);
             wp_enqueue_script('jquery');
         }
     }
@@ -407,7 +396,7 @@ if (get_option('wp_plus_copyright') == 'checked') {
     
     function plus_copyright()
     {
-        echo '<script>function plus_copyright(){document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); notie("error", "商业转载请联系作者获得授权，非商业转载请注明出处", true); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . get_the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . get_the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }}</script>';
+        echo '<script>function plus_copyright(){document.body.addEventListener("copy", function (e) { if (window.getSelection().toString().length > '. get_option("wp_plus_copyright_num") .') { setClipboardText(e); notie("商业转载请联系作者获得授权，非商业转载请注明出处", {type:"error", autoHide:true, timeout: 5000,width:200}); } }); function setClipboardText(event) { event.preventDefault(); var htmlData = "" + "著作权归作者所有。<br>" + "商业转载请联系作者获得授权，非商业转载请注明出处。<br>" + "作者：' . get_the_author() . '<br>" + "链接：" + window.location.href + "<br>" + "来源：' . get_bloginfo('name') . '<br><br>" + window.getSelection().toString(); var textData = "" + "著作权归作者所有。\n" + "商业转载请联系作者获得授权，非商业转载请注明出处。\n" + "作者：' . get_the_author() . '\n" + "链接：" + window.location.href + "\n" + "来源：' . get_bloginfo('name') . '\n\n" + window.getSelection().toString(); if (event.clipboardData) { event.clipboardData.setData("text/html", htmlData); event.clipboardData.setData("text/plain",textData); } else if (window.clipboardData) { return window.clipboardData.setData("text", textData); } }}</script>';
         if (is_single()) {
             echo '<script>plus_copyright();</script>';
         }
@@ -428,7 +417,7 @@ if (get_option('wp_plus_oldpost') == 'checked') {
         if (is_single()) {
             $time = time() - get_the_modified_date('U');
             if ($time > get_option("wp_plus_oldpost_num") * 86400) {
-               return $content . "<script>function plus_oldpost(){notie('warning', '此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', true);};plus_oldpost();</script>";
+                return $content . "<script>window.plus_oldpost = function(){notie('此文章最后修订于 ". floor($time / 86400) ." 天前，其中的信息可能已经有所发展或是发生改变', {type:'warning', autoHide:true, timeout: 5000,width:200});};plus_oldpost();</script>";
             }
         }
         return $content;
@@ -470,46 +459,12 @@ function disable_emoji_tinymce( $plugins ) {
 }
 ?>
 <?php
-/**
- * [plus_post 用于向LWL插件统计API发送数据]
- * @param  [text] $action [动作]
- * @return [type]         [成功返回返回内容，失败返回false]
- * 请勿修改或删除此段代码，这非常重要！
- */
-function plus_post($action)
-{
-    if (get_option('wp_plus_uuid', "") == "") {
-        $chars = md5(uniqid(mt_rand(), true));
-        $uuid  = substr($chars, 0, 8) . '-';
-        $uuid .= substr($chars, 8, 4) . '-';
-        $uuid .= substr($chars, 12, 4) . '-';
-        $uuid .= substr($chars, 16, 4) . '-';
-        $uuid .= substr($chars, 20, 12);
-        add_option('wp_plus_uuid', "wp_plus_" . $uuid);
-    }
-    $args = array(
-        'uuid' => get_option('wp_plus_uuid'),
-        'url' => get_bloginfo('url'),
-        'name' => get_bloginfo('name'),
-        'version' => plus_version,
-        'action' => $action
-    );
-    
-    $response = wp_remote_post('https://api.lwl12.com/wordpress/plugin/wpplus/post.php', array(
-        'body' => $args
-    ));
-    
-    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200)
-        return (false);
-    else
-        return (wp_remote_retrieve_body($response));
-}
 function plus_updateinfo()
 {
     return (plus_post("update"));
 }
 function plus_loadalert(){
-    wp_register_script('notieJS', WP_PLUS_URL . 'alert/notie.js');
+    wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
     wp_enqueue_script('notieJS');
 }
 add_action('wp_enqueue_scripts', 'plus_loadalert');
