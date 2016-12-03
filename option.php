@@ -10,10 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[优化]更新 iedie<br />
-[优化]更新 notie<br />
-[优化]优化目录结构<br />
-[移除]插件回报逻辑
+[修复]一项严重 BUG
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
