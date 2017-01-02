@@ -81,6 +81,9 @@ echo plus_version;
         <input type="checkbox" name="disable_emoji" id="disable_emoji" <?php
         echo get_option("wp_plus_disable_emoji");
         ?> /> 启用“禁用自带 Emoji”功能<p>
+        <input type="checkbox" name="ignore_git" id="ignore_git" <?php
+        echo get_option("ignore_git");
+        ?> /> 启用“后台更新忽略版本控制系统”功能<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
@@ -215,5 +218,12 @@ function plus_pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_disable_emoji', $display);
+
+    if ($_POST['ignore_git'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_ignore_git', $display);
 }
 ?>

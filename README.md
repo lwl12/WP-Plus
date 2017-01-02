@@ -11,8 +11,11 @@
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
 ## Change log
-= 1.69 =
-[优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist [notie](https://github.com/egoist/notie)项目） 
+= 1.76-RC1.0 =  
+[新增]后台更新忽略版本控制系统功能  
+---------------------------------------
+= 1.69 =  
+[优化]欢迎信息、版权提示采用全新提示框组件（感谢Github@egoist [notie](https://github.com/egoist/notie)项目）
 [新增]久远文章提示：当文章最后修订天数距现在超过一个值时，提示用户内容可能失效
 
 = 1.68 =  
