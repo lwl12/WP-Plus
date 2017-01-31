@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 1.76-RC1.0
+Version: 1.76-RC1.1
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.76-RC1.0");
+define("plus_version", "1.76-RC1.1");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -319,31 +319,6 @@ if (get_option('wp_plus_linkman') == 'checked') {
 }
 ?>
 <?php
-/*Google公共库加速*/
-if (get_option('wp_plus_google') == 'checked') {
-    ?>
-<?php
-    function wp_plus_google($buffer)
-    {
-        $buffer = str_replace("fonts.googleapis.com", "fonts.geekzu.org", $buffer);
-        $buffer = str_replace("ajax.googleapis.com", "sdn.geekzu.org/ajax", $buffer);
-        return $buffer;
-    }
-    function wp_plus_google_start()
-    {
-        ob_start("wp_plus_google");
-    }
-    function wp_plus_google_end()
-    {
-        ob_end_flush();
-    }
-    add_action('init', 'wp_plus_google_start');
-    add_action('shutdown', 'wp_plus_google_end'); ?>
-<?php
-
-}
-?>
-<?php
 /*代码高亮*/
 if (get_option('wp_plus_codehl') == 'checked') {
     ?>
@@ -463,6 +438,28 @@ add_filter('automatic_updates_is_vcs_checkout', '__return_false'); ?>
 <?php
 
 }
+?>
+<?php
+/**
+ * Description: 解决 WordPress 简体中文版每次加载后台都会产生好多条非必要 SQL 请求的情况，实质上是在 admin_init 钩子上移除了 wp-content/languages/zh_CN.php 本地化文件中清理旧版选项的函数，改为只在 WordPress 升级数据库时执行。
+ * Version:     1.0
+ *
+ * Author:      斌果
+ * Author URI:  https://www.bgbk.org
+ */
+ if (get_option('wp_plus_remove_zh_cn_legacy_option_clean') == 'checked') {
+     ?>
+    <?php
+function Bing_remove_zh_cn_legacy_option_clean()
+     {
+         if (remove_action('admin_init', 'zh_cn_l10n_legacy_option_cleanup')) {
+             add_action('wp_upgrade', 'zh_cn_l10n_legacy_option_cleanup');
+         }
+     }
+     add_action('init', 'Bing_remove_zh_cn_legacy_option_clean'); ?>
+<?php
+
+ }
 ?>
 <?php
 function plus_loadalert()

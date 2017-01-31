@@ -10,7 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[新增]后台更新忽略版本控制系统功能
+[新增]移除中文本地化产生的不必要数据库查询功能
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -83,6 +83,9 @@ echo plus_version;
         <input type="checkbox" name="ignore_git" id="ignore_git" <?php
         echo get_option("wp_plus_ignore_git");
         ?> /> 启用“后台更新忽略版本控制系统”功能<p>
+        <input type="checkbox" name="remove_zh_cn_legacy_option_clean" id="remove_zh_cn_legacy_option_clean" <?php
+        echo get_option("wp_plus_remove_zh_cn_legacy_option_clean");
+        ?> /> 启用“移除中文本地化产生的不必要数据库查询”功能<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
@@ -224,5 +227,11 @@ function plus_pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_ignore_git', $display);
+    if ($_POST['remove_zh_cn_legacy_option_clean'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_remove_zh_cn_legacy_option_clean', $display);
 }
 ?>
