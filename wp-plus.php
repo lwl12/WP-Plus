@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 1.76-RC1.1
+Version: 1.76-RC1.2
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.76-RC1.1");
+define("plus_version", "1.76-RC1.2");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -91,18 +91,18 @@ if (get_option('wp_plus_glgjt') == 'checked') {
 if (get_option('wp_plus_gravatar') == 'checked') {
     ?>
 <?php
-    function plus_tycdn_avatar($avatar)
+    function plus_v2ex_avatar($avatar)
     {
         $avatar = str_replace(array(
-            "www.gravatar.com",
-            "0.gravatar.com",
-            "1.gravatar.com",
-            "2.gravatar.com",
-            "secure.gravatar.com"
-        ), "gravatar.tycdn.net", $avatar);
+            "www.gravatar.com/avatar/",
+            "0.gravatar.com/avatar/",
+            "1.gravatar.com/avatar/",
+            "2.gravatar.com/avatar/",
+            "secure.gravatar.com/avatar/"
+        ), "v2ex.assets.uxengine.net/gravatar/", $avatar);
         return $avatar;
     }
-    add_filter('get_avatar', 'plus_tycdn_avatar', 10, 3); ?>
+    add_filter('get_avatar', 'plus_v2ex_avatar', 10, 3); ?>
 <?php
 
 }

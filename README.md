@@ -10,7 +10,9 @@
 
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
-## Change log
+## Change log  
+= 1.76-RC1.2 =
+[优化]切换 Gravatar 镜像到 V2EX CDN
 = 1.76-RC1.1 =
 [新增]移除中文本地化产生的不必要数据库查询功能  
 

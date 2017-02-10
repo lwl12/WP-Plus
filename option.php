@@ -10,7 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[新增]移除中文本地化产生的不必要数据库查询功能
+[优化]切换 Gravatar 镜像到 V2EX CDN
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -43,7 +43,7 @@ echo plus_version;
     <div style="margin-left: 50px">
         <input type="checkbox" name="gravatar" id="gravatar" <?php
         echo get_option('wp_plus_gravatar');
-        ?> /> 启用“Gravatar替换到TYCDN镜像”功能<p>
+        ?> /> 启用“Gravatar替换到V2EX镜像”功能<p>
         <input type="checkbox" name="chuser" id="chuser" <?php
         echo get_option("wp_plus_chuser");
         ?> /> 启用“允许添加中文用户名用户”功能<p>
