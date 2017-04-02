@@ -11,6 +11,8 @@
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
 ## Change log  
+= 1.76-RC1.3 =  
+[修复]插件在启用的过程中产生的异常输出 (感谢报告者 @masktel)  
 = 1.76-RC1.2 =  
 [优化]切换 Gravatar 镜像到 V2EX CDN
 = 1.76-RC1.1 =

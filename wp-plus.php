@@ -5,7 +5,7 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 1.76-RC1.2
+Version: 1.76-RC1.3
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
@@ -57,8 +57,7 @@ function plus_pluginoptions_page()
 }
 /*加载进度*/
 if (get_option('wp_plus_jdt') == 'checked') {
-    ?>
-<?php
+    ?><?php
 
     function plus_wpn_enqueue()
     {
@@ -72,25 +71,19 @@ if (get_option('wp_plus_jdt') == 'checked') {
             'nprogress'
         ), '0.0.1', true);
     }
-    add_action('wp_enqueue_scripts', 'plus_wpn_enqueue'); ?>
-<?php
+    add_action('wp_enqueue_scripts', 'plus_wpn_enqueue'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_glgjt') == 'checked') {
-    ?>
-<?php
-    show_admin_bar(false); ?>
-<?php
+    ?><?php
+    show_admin_bar(false); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*替换头像*/
 if (get_option('wp_plus_gravatar') == 'checked') {
-    ?>
-<?php
+    ?><?php
     function plus_v2ex_avatar($avatar)
     {
         $avatar = str_replace(array(
@@ -102,42 +95,34 @@ if (get_option('wp_plus_gravatar') == 'checked') {
         ), "v2ex.assets.uxengine.net/gravatar/", $avatar);
         return $avatar;
     }
-    add_filter('get_avatar', 'plus_v2ex_avatar', 10, 3); ?>
-<?php
+    add_filter('get_avatar', 'plus_v2ex_avatar', 10, 3); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*微软雅黑*/
 if (get_option('wp_plus_wryh') == 'checked') {
-    ?>
-<?php
+    ?><?php
     function plus_admin_fonts()
     {
         echo '<style type="text/css"> * { font-family: "Microsoft YaHei" !important; } i, .ab-icon, .mce-close, i.mce-i-aligncenter, i.mce-i-alignjustify, i.mce-i-alignleft, i.mce-i-alignright, i.mce-i-blockquote, i.mce-i-bold, i.mce-i-bullist, i.mce-i-charmap, i.mce-i-forecolor, i.mce-i-fullscreen, i.mce-i-help, i.mce-i-hr, i.mce-i-indent, i.mce-i-italic, i.mce-i-link, i.mce-i-ltr, i.mce-i-numlist, i.mce-i-outdent, i.mce-i-pastetext, i.mce-i-pasteword, i.mce-i-redo, i.mce-i-removeformat, i.mce-i-spellchecker, i.mce-i-strikethrough, i.mce-i-underline, i.mce-i-undo, i.mce-i-unlink, i.mce-i-wp-media-library, i.mce-i-wp_adv, i.mce-i-wp_fullscreen, i.mce-i-wp_help, i.mce-i-wp_more, i.mce-i-wp_page, .qt-fullscreen, .star-rating .star { font-family: dashicons !important; } .mce-ico { font-family: tinymce, Arial !important; } .fa { font-family: FontAwesome !important; } .genericon { font-family: "Genericons" !important; } .appearance_page_scte-theme-editor #wpbody *, .ace_editor * { font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace !important; } .post-type-post #advanced-sortables, .post-type-post #autopaging .description { display: none !important; } .form-field input, .form-field textarea { width: inherit; border-width: 0; } </style>';
     }
-    add_action('admin_head', 'plus_admin_fonts'); ?>
-<?php
+    add_action('admin_head', 'plus_admin_fonts'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*积分特效*/
 if (get_option('wp_plus_number') == 'checked') {
-    ?>
-<?php
+    ?><?php
     function wp_plus_jifentx()
     {
         echo '<script> jQuery(document).ready(function($) { $("html,body").click(function(e){ var n=Math.round(Math.random()*100); var $i=$("<b/>").text("+"+n); var x=e.pageX,y=e.pageY; $i.css({ "z-index":99999, "top":y-20, "left":x, "position":"absolute", "color":"#E94F06" }); $("body").append($i); $i.animate( {"top":y-180,"opacity":0}, 1500, function(){$i.remove();}); e.stopPropagation();});}); </script>';
     }
     add_action('wp_footer', 'wp_plus_jifentx');
 }
-?>
-<?php
+?><?php
 /*中文用户*/
 if (get_option('wp_plus_chuser') == 'checked') {
-    ?>
-<?php
+    ?><?php
     add_filter('sanitize_user', 'plus_chinese_user', 3, 3);
     function plus_chinese_user($username, $raw_username, $strict)
     {
@@ -152,11 +137,9 @@ if (get_option('wp_plus_chuser') == 'checked') {
         return $username;
     }
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_ping') == 'checked') {
-    ?>
-<?php
+    ?><?php
     /* 禁止站内文章PingBack */
     function plus_no_self_ping(&$links)
     {
@@ -167,15 +150,12 @@ if (get_option('wp_plus_ping') == 'checked') {
             }
         }
     }
-    add_action('pre_ping', 'plus_no_self_ping'); ?>
-<?php
+    add_action('pre_ping', 'plus_no_self_ping'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_nofollow') == 'checked') {
-    ?>
-<?php
+    ?><?php
     /* 自动为博客内的连接添加nofollow属性并在新窗口打开链接 */
     add_filter('the_content', 'plus_cn_nf_url_parse');
 
@@ -211,44 +191,35 @@ if (get_option('wp_plus_nofollow') == 'checked') {
         }
         $content = str_replace(']]>', ']]>', $content);
         return $content;
-    } ?>
-<?php
+    } ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_bingbg') == 'checked') {
-    ?>
-<?php
+    ?><?php
     // 调用Bing美图作为登陆界面背景 //
     function plus_bingbg()
     {
         $imgurl = 'https://api.i-meto.com/bing?new&blur';
         echo '<style type="text/css">body{background: url(' . $imgurl . ');width:100%;height:100%;background-image:url(' . $imgurl . ');-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url(' . $imgurl . ') 0;background-repeat:no-repeat\9;background-image:none\9;}</style>';
     }
-    add_action('login_head', 'plus_bingbg'); ?>
-<?php
+    add_action('login_head', 'plus_bingbg'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_simplifyhead') == 'checked') {
-    ?>
-<?php
+    ?><?php
     remove_action('wp_head', 'rsd_link');
     remove_action('wp_head', 'wlwmanifest_link');
     remove_action('wp_head', 'index_rel_link');
     remove_action('wp_head', 'parent_post_rel_link', 10, 0);
     remove_action('wp_head', 'start_post_rel_link', 10, 0);
-    remove_action('wp_head', 'wp_generator'); ?>
-<?php
+    remove_action('wp_head', 'wp_generator'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_replaceurl') == 'checked') {
-    ?>
-<?php
+    ?><?php
     add_action('template_redirect', 'plus_relative_urls');
 
     function plus_relative_urls()
@@ -274,15 +245,12 @@ if (get_option('wp_plus_replaceurl') == 'checked') {
         foreach ($filters as $filter) {
             add_filter($filter, 'wp_make_link_relative');
         }
-    } ?>
-<?php
+    } ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_welcomemsg') == 'checked') {
-    ?>
-<?php
+    ?><?php
     require "welcomemsg.php";
     function plus_welcomemsg()
     {
@@ -291,38 +259,29 @@ if (get_option('wp_plus_welcomemsg') == 'checked') {
             echo "<script>notie('$msg', {type:'info', autoHide:true, timeout: 5000,width:200})</script>";
         }
     }
-    add_action('wp_footer', 'plus_welcomemsg'); ?>
-<?php
+    add_action('wp_footer', 'plus_welcomemsg'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_ietip') == 'checked') {
-    ?>
-<?php
+    ?><?php
     function plus_ietip()
     {
         echo '<!--[if lt IE 10]><script src="' . WP_PLUS_URL . 'js/iedie.min.js"></script><![endif]-->';
     }
-    add_action('wp_head', 'plus_ietip'); ?>
-<?php
+    add_action('wp_head', 'plus_ietip'); ?><?php
 
 }
-?>
-<?php
+?><?php
 if (get_option('wp_plus_linkman') == 'checked') {
-    ?>
-<?php
-    add_filter('pre_option_link_manager_enabled', '__return_true'); ?>
-<?php
+    ?><?php
+    add_filter('pre_option_link_manager_enabled', '__return_true'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*代码高亮*/
 if (get_option('wp_plus_codehl') == 'checked') {
-    ?>
-<?php
+    ?><?php
     function plus_add_prismjs()
     {
         wp_register_script('prismJS', WP_PLUS_URL . 'js/plus_prism.js?ver=' . plus_version);
@@ -334,16 +293,13 @@ if (get_option('wp_plus_codehl') == 'checked') {
         wp_enqueue_style('prismCSS');
     }
     add_action('wp_enqueue_scripts', 'plus_add_prismjs');
-    add_action('wp_head', 'plus_add_prismcss'); ?>
-<?php
+    add_action('wp_head', 'plus_add_prismcss'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*替换JQ*/
 if (get_option('wp_plus_jquery') == 'checked') {
-    ?>
-<?php
+    ?><?php
     add_action('init', 'jquery_register');
     function jquery_register()
     {
@@ -352,16 +308,13 @@ if (get_option('wp_plus_jquery') == 'checked') {
             wp_register_script('jquery', (WP_PLUS_URL . 'js/jquery-1.8.2.min.js?ver=' . plus_version), false, null, true);
             wp_enqueue_script('jquery');
         }
-    } ?>
-<?php
+    } ?><?php
 
 }
-?>
-<?php
+?><?php
 /*版权提示*/
 if (get_option('wp_plus_copyright') == 'checked') {
-    ?>
-<?php
+    ?><?php
 
     function plus_copyright()
     {
@@ -370,16 +323,13 @@ if (get_option('wp_plus_copyright') == 'checked') {
             echo '<script>plus_copyright();</script>';
         }
     }
-    add_action('wp_footer', 'plus_copyright'); ?>
-<?php
+    add_action('wp_footer', 'plus_copyright'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*久远文章提示*/
 if (get_option('wp_plus_oldpost') == 'checked') {
-    ?>
-<?php
+    ?><?php
 
     function plus_oldpost($content)
     {
@@ -391,16 +341,13 @@ if (get_option('wp_plus_oldpost') == 'checked') {
         }
         return $content;
     }
-    add_filter('the_content', 'plus_oldpost'); ?>
-<?php
+    add_filter('the_content', 'plus_oldpost'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /*禁用emoji*/
 if (get_option('wp_plus_disable_emoji') == 'checked') {
-    ?>
-<?php
+    ?><?php
 /**
  * 禁用emoji
  */
@@ -424,22 +371,17 @@ function disable_emoji()
         } else {
             return array();
         }
-    } ?>
-<?php
+    } ?><?php
 
 }
-?>
-<?php
+?><?php
 /*版本控制忽略*/
 if (get_option('wp_plus_ignore_git') == 'checked') {
-    ?>
-<?php
-add_filter('automatic_updates_is_vcs_checkout', '__return_false'); ?>
-<?php
+    ?><?php
+add_filter('automatic_updates_is_vcs_checkout', '__return_false'); ?><?php
 
 }
-?>
-<?php
+?><?php
 /**
  * Description: 解决 WordPress 简体中文版每次加载后台都会产生好多条非必要 SQL 请求的情况，实质上是在 admin_init 钩子上移除了 wp-content/languages/zh_CN.php 本地化文件中清理旧版选项的函数，改为只在 WordPress 升级数据库时执行。
  * Version:     1.0
@@ -448,24 +390,20 @@ add_filter('automatic_updates_is_vcs_checkout', '__return_false'); ?>
  * Author URI:  https://www.bgbk.org
  */
  if (get_option('wp_plus_remove_zh_cn_legacy_option_clean') == 'checked') {
-     ?>
-    <?php
+     ?><?php
 function Bing_remove_zh_cn_legacy_option_clean()
      {
          if (remove_action('admin_init', 'zh_cn_l10n_legacy_option_cleanup')) {
              add_action('wp_upgrade', 'zh_cn_l10n_legacy_option_cleanup');
          }
      }
-     add_action('init', 'Bing_remove_zh_cn_legacy_option_clean'); ?>
-<?php
+     add_action('init', 'Bing_remove_zh_cn_legacy_option_clean'); ?><?php
 
  }
-?>
-<?php
+?><?php
 function plus_loadalert()
 {
     wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
     wp_enqueue_script('notieJS');
 }
 add_action('wp_enqueue_scripts', 'plus_loadalert');
-?>

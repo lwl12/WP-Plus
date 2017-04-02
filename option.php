@@ -10,7 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[优化]切换 Gravatar 镜像到 V2EX CDN
+[修复]插件在启用的过程中产生的异常输出 (感谢报告者 @masktel)
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
