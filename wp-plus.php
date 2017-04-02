@@ -9,7 +9,7 @@ Version: 1.76-RC1.3
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.76-RC1.2");
+define("plus_version", "1.76-RC1.3");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
