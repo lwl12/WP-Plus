@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 1.76-RC1.3
+Version: 1.76-RC1.4
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "1.76-RC1.3");
+define("plus_version", "1.76-RC1.4");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -292,6 +292,29 @@ if (get_option('wp_plus_codehl') == 'checked') {
         wp_register_style('prismCSS', WP_PLUS_URL . 'css/plus_prism.css?ver=' . plus_version);
         wp_enqueue_style('prismCSS');
     }
+
+    class plusPrism
+    {
+        public function __construct()
+        {
+            add_filter('clean_url', array(
+                $this,
+                'add_async_forscript'
+            ), 11, 1);
+        }
+        public function add_async_forscript($url)
+        {
+            if (strpos($url, 'plus_prism.js')===false) {
+                return $url;
+            } elseif (is_admin()) {
+                return $url;
+            } else {
+                return $url."' async='async";
+            }
+        }
+    }
+
+    new plusPrism;
     add_action('wp_enqueue_scripts', 'plus_add_prismjs');
     add_action('wp_head', 'plus_add_prismcss'); ?><?php
 
@@ -403,7 +426,9 @@ function Bing_remove_zh_cn_legacy_option_clean()
 ?><?php
 function plus_loadalert()
 {
-    wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
-    wp_enqueue_script('notieJS');
+    if (get_option('wp_plus_welcomemsg') == 'checked' && get_option('wp_plus_copyright') == 'checked' && get_option('wp_plus_oldpost') == 'checked') {
+        wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
+        wp_enqueue_script('notieJS');
+    }
 }
 add_action('wp_enqueue_scripts', 'plus_loadalert');
