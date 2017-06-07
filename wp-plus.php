@@ -426,7 +426,7 @@ function Bing_remove_zh_cn_legacy_option_clean()
 ?><?php
 function plus_loadalert()
 {
-    if (get_option('wp_plus_welcomemsg') == 'checked' && get_option('wp_plus_copyright') == 'checked' && get_option('wp_plus_oldpost') == 'checked') {
+    if (get_option('wp_plus_welcomemsg') == 'checked' || get_option('wp_plus_copyright') == 'checked' || get_option('wp_plus_oldpost') == 'checked') {
         wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
         wp_enqueue_script('notieJS');
     }
