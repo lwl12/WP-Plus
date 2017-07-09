@@ -28,6 +28,8 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 1. WP-Plus
 
 == Changelog ==
+= 1.76-RC1.6 =
+[优化]兼容性问题
 = 1.76-RC1.5 =
 [修复]notie.min.js不加载 (感谢用户@Y-Young)
 = 1.76-RC1.4 =
@@ -107,8 +109,10 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 提交到WordPress插件库的第一个版本，包含基础功能，并优化了代码
 
 == Upgrade Notice ==
+= 1.76-RC1.6 =
+[优化]兼容性问题
 = 1.76-RC1.5 =
-[修复]notie.min.js不加载 (感谢用户@Y-Young)  
+[修复]notie.min.js不加载 (感谢用户@Y-Young)
 = 1.76-RC1.2 =
 [优化]切换 Gravatar 镜像到 V2EX CDN
 = 1.76-RC1.1 =

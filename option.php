@@ -10,7 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[修复]notie.min.js不加载 (感谢用户@Y-Young)
+[优化]兼容性问题
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
