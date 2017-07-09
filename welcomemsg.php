@@ -1,7 +1,7 @@
 <?php
 function welcome_msg()
 {
-    if (is_bot()) {
+    if (wpplus_is_bot()) {
         return;
     }
     if ($m = apply_filters('welcome_msg', $string)) {
@@ -65,7 +65,7 @@ function welcome_msg()
         //有道
     } elseif (preg_match('/reader\.youdao/i', $referer)) {
         $callback = "感谢你通过 <strong>有道</strong> 订阅我!  既然过来读原文了. 欢迎留言指导啊.嘿嘿 ^_^";
-        //自己  
+        //自己
     } elseif (self()) { //若来路是自己的网站
         //$callback = "你在找什么呢？试试上面的搜索吧~"."\n";
         $callback = false;
@@ -90,7 +90,7 @@ function self()
 /**
  * 通过USER_Agent判断是否为机器人.
  */
-function is_bot()
+function wpplus_is_bot()
 {
     $bots      = array(
         'Google Bot1' => 'googlebot',
