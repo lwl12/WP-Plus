@@ -11,6 +11,8 @@
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
 ## Change log  
+= 1.76-RC1.6 =
+[优化]登录背景效果  
 = 1.76-RC1.6 =  
 [优化]兼容性问题  
 = 1.76-RC1.5 =  
