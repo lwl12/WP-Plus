@@ -10,7 +10,7 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[优化]登录背景效果
+[修复] 更新 Gravartar 镜像地址
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -65,9 +65,9 @@ echo plus_version;
         <input type="checkbox" name="linkman" id="linkman" <?php
         echo get_option("wp_plus_linkman");
         ?> /> 启用“WP原生链接管理器”功能<p>
-        <input type="checkbox" name="google" id="google" <?php
-        echo get_option("wp_plus_google");
-        ?> /> 启用“替换Google API”功能<p>
+        <!-- <input type="checkbox" name="google" id="google" <?php
+        //echo get_option("wp_plus_google");
+        ?> /> 启用“替换Google API”功能<p> -->
         <input type="checkbox" name="jquery" id="jquery" <?php
         echo get_option("wp_plus_jquery");
         ?> /> 启用“替换新版本JQuery”功能<p>
