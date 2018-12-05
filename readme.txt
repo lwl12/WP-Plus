@@ -1,11 +1,11 @@
 === WP-Plus ===
-Contributors: liwanglin12
+Contributors: lwl12
 Donate link: https://lwl12.com/
 Tags: wordpressplus, wpplus, 增强, 优化, Enhancement, optimization
 Requires at least: 3.0
-Tested up to: 4.7
+Tested up to: 4.9.8
 Stable tag: 1.3
-License: GPLv2 or later
+License: MIT
 
 == Description ==
 于是，她，终于来了。<br />
@@ -28,6 +28,10 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 1. WP-Plus
 
 == Changelog ==
+= 2.1.0 =
+好久没更新了啊……其实这插件代码现在我自己都看不下去了，然而并没有动力重构一次……
+[优化] 更新 jQuery
+[新增] 禁用附件页功能
 = 1.76-RC1.6 =
 [优化]登录背景效果
 = 1.76-RC1.6 =
@@ -111,6 +115,10 @@ WP-Plus 是一款免费插件，但我仍会更专注于其稳定性与专业性
 提交到WordPress插件库的第一个版本，包含基础功能，并优化了代码
 
 == Upgrade Notice ==
+= 2.1.0 =
+好久没更新了啊……其实这插件代码现在我自己都看不下去了，然而并没有动力重构一次……
+[优化] 更新 jQuery
+[新增] 禁用附件页功能
 = 1.76-RC1.6 =
 [优化]登录背景效果
 = 1.76-RC1.6 =

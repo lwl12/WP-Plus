@@ -10,7 +10,9 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-[修复] 更新 Gravartar 镜像地址
+好久没更新了啊……其实这插件代码现在我自己都看不下去了，然而并没有动力重构一次……<br>
+[优化] 更新 jQuery <br>
+[新增] 禁用附件页功能
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
@@ -70,7 +72,7 @@ echo plus_version;
         ?> /> 启用“替换Google API”功能<p> -->
         <input type="checkbox" name="jquery" id="jquery" <?php
         echo get_option("wp_plus_jquery");
-        ?> /> 启用“替换新版本JQuery”功能<p>
+        ?> /> 启用“替换原版JQuery（保留 $ 调用）”功能<p>
         <input type="checkbox" name="copyright" id="copyright" <?php
         echo get_option("wp_plus_copyright");
         ?> /> 启用“复制文字时自动添加版权信息”功能: 复制<input type="number" value="<?php echo get_option("wp_plus_copyright_num") ? get_option("wp_plus_copyright_num") : "30";?>" size="3" name="copyright_num" id="copyright_num" required="required"/>字时添加<p>
@@ -86,10 +88,13 @@ echo plus_version;
         <input type="checkbox" name="remove_zh_cn_legacy_option_clean" id="remove_zh_cn_legacy_option_clean" <?php
         echo get_option("wp_plus_remove_zh_cn_legacy_option_clean");
         ?> /> 启用“移除中文本地化产生的不必要数据库查询”功能<p>
+        <input type="checkbox" name="disable_attachment_page" id="disable_attachment_page" <?php
+        echo get_option("wp_plus_disable_attachment_page");
+        ?> /> 启用“禁用附件页面”功能<p>
     </div>
     <input type="submit" class="button-primary" value="保存设置" style="margin: 20px 0;" /> &nbsp; WP-Plus 版本 <?php
     echo plus_version;
-    ?> &nbsp; 插件作者 <a href="https://lwl12.com">liwanglin12</a> &nbsp; <a href="http://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
+    ?> &nbsp; 插件作者 <a href="https://lwl12.com">lwl12</a> &nbsp; <a href="https://blog.lwl12.com/read/wp-plus.html">点击获取最新版本 & 说明</a>
 </form>
 
 <?php
@@ -233,5 +238,11 @@ function plus_pluginoptions_update()
         $display = '';
     }
     update_option('wp_plus_remove_zh_cn_legacy_option_clean', $display);
+    if ($_POST['disable_attachment_page'] == 'on') {
+        $display = 'checked';
+    } else {
+        $display = '';
+    }
+    update_option('wp_plus_disable_attachment_page', $display);
 }
 ?>

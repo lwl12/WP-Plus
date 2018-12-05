@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 2.0.0
+Version: 2.1.0
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "2.0.0");
+define("plus_version", "2.1.0");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -328,7 +328,7 @@ if (get_option('wp_plus_jquery') == 'checked') {
     {
         if (!is_admin()) {
             wp_deregister_script('jquery');
-            wp_register_script('jquery', (WP_PLUS_URL . 'js/jquery-1.8.2.min.js?ver=' . plus_version), false, null, true);
+            wp_register_script('jquery', (WP_PLUS_URL . 'js/jquery-1.12.4.min.js?ver=' . plus_version), false, null, true);
             wp_enqueue_script('jquery');
         }
     } ?><?php
@@ -403,6 +403,20 @@ if (get_option('wp_plus_ignore_git') == 'checked') {
     ?><?php
 add_filter('automatic_updates_is_vcs_checkout', '__return_false'); ?><?php
 
+}
+?><?php
+if (get_option('wp_plus_disable_attachment_page') == 'checked') {
+    ?><?php
+function wp_plus_disable_attachment_page() {
+	if ( is_attachment() ) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header( 404 );
+        get_template_part( 404 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'wp_plus_disable_attachment_page' );
 }
 ?><?php
 /**
