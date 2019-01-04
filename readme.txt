@@ -3,7 +3,7 @@ Contributors: lwl12
 Donate link: https://lwl12.com/
 Tags: wordpressplus, wpplus, 增强, 优化, Enhancement, optimization
 Requires at least: 3.0
-Tested up to: 4.9.8
+Tested up to: 5.1.0
 Stable tag: 1.3
 License: MIT
 
