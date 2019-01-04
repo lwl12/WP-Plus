@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 2.1.1
+Version: 2.1.2
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "2.1.1");
+define("plus_version", "2.1.2");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -95,7 +95,9 @@ if (get_option('wp_plus_gravatar') == 'checked') {
         ), "gravatar.loli.net/avatar/", $avatar);
         return $avatar;
     }
-    add_filter('get_avatar', 'plus_sbsb_avatar', 10, 3); ?><?php
+    add_filter('get_avatar', 'plus_sbsb_avatar', 10, 3); 
+    add_filter('get_avatar_url', 'plus_sbsb_avatar', 10, 3); 
+    ?><?php
 
 }
 ?><?php
@@ -328,7 +330,7 @@ if (get_option('wp_plus_jquery') == 'checked') {
     {
         if (!is_admin()) {
             wp_deregister_script('jquery');
-            wp_register_script('jquery', (WP_PLUS_URL . 'js/jquery-1.12.4.min.js?ver=' . plus_version), false, null, true);
+            wp_register_script('jquery', 'https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js', false, null, true);
             wp_enqueue_script('jquery');
         }
     } ?><?php
@@ -438,11 +440,17 @@ function Bing_remove_zh_cn_legacy_option_clean()
 
  }
 ?><?php
+function plus_add_async_attribute($tag, $handle) {
+    if ( 'notieJS' !== $handle )
+    return $tag;
+    return str_replace( ' src', ' async src', $tag );
+}
 function plus_loadalert()
 {
     if (get_option('wp_plus_welcomemsg') == 'checked' || get_option('wp_plus_copyright') == 'checked' || get_option('wp_plus_oldpost') == 'checked') {
         wp_register_script('notieJS', WP_PLUS_URL . 'js/notie.min.js');
         wp_enqueue_script('notieJS');
+        add_filter('script_loader_tag', 'plus_add_async_attribute', 10, 2);
     }
 }
 add_action('wp_enqueue_scripts', 'plus_loadalert');
