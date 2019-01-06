@@ -11,6 +11,9 @@
 通过 [WordPress 插件库](https://wordpress.org/plugins/wp-plus/) 或者手动安装 WP-Plus 并启用
 
 ## Change log  
+= 2.1.3 =  
+[优化] 更新 jQuery  
+[优化] 资源文件逐步使用 jsDelivr 加载  
 = 2.1.0 =
 好久没更新了啊……其实这插件代码现在我自己都看不下去了，然而并没有动力重构一次……
 [优化] 更新 jQuery

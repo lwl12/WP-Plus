@@ -10,9 +10,8 @@ if ($_POST['update_pluginoptions'] == 'true') {
 <div id="message" class="updated"><p>WP-Plus <?php
 echo plus_version;
 ?>版本更新日志：<br />
-好久没更新了啊……其实这插件代码现在我自己都看不下去了，然而并没有动力重构一次……<br>
 [优化] 更新 jQuery <br>
-[新增] 禁用附件页功能
+[优化] 资源文件逐步使用 jsDelivr 加载
 </div>
 <form method="POST" action="">
 <input type="hidden" name="update_pluginoptions" value="true" />
