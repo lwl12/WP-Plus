@@ -5,11 +5,11 @@ Plugin URI: https://blog.lwl12.com/read/wp-plus.html
 Description: 优化和增强您的博客
 Author: liwanglin12
 Author URI: https://lwl12.com
-Version: 2.1.3
+Version: 2.1.4
 */
 /*Exit if accessed directly:安全第一,如果是直接载入,就退出.*/
 defined('ABSPATH') or exit;
-define("plus_version", "2.1.3");
+define("plus_version", "2.1.4");
 /* 插件初始化*/
 define('WP_PLUS_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'plus_plugin_activate');
@@ -442,12 +442,12 @@ function Bing_remove_zh_cn_legacy_option_clean()
 ?><?php
 function plus_add_async_attribute($tag, $handle) {
     if ( 'notieJS' !== $handle ) return $tag;
-    return str_replace( ' src', ' async integrity="sha384-8bGJKwCqbI7udp0sOa7fKUki3nRcGEXqfmn5rB9OzNFkx5tfaKNc1NxgKgfmtx7f" crossorigin="anonymous" src', $tag );
+    return str_replace( ' src', ' async integrity="sha384-vO46R/Kxmvgbjw4biqvRvhYvWKUgTip1VUIPDKlCIFnuP5aUYvdLQ8aVtS9L3ZO/" crossorigin="anonymous" src', $tag );
 }
 function plus_loadalert()
 {
     if (get_option('wp_plus_welcomemsg') == 'checked' || get_option('wp_plus_copyright') == 'checked' || get_option('wp_plus_oldpost') == 'checked') {
-        wp_register_script('notieJS', 'https://cdn.jsdelivr.net/npm/corner-notie@1.2.1/notie.min.js');
+        wp_register_script('notieJS', 'https://cdn.jsdelivr.net/npm/corner-notie@1.2.1/browser/notie.js');
         wp_enqueue_script('notieJS');
         add_filter('script_loader_tag', 'plus_add_async_attribute', 10, 2);
     }
